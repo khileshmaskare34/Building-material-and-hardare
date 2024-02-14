@@ -1,0 +1,74 @@
+/* _______________nav-bar css code start hereh______________ */
+@font-face {
+  font-family: gilroy;
+  src: url("/fonts/Assistant-Regular.ttf");
+}
+@font-face {
+  font-family: gilroy-b;
+  src: url("/fonts/Assistant-Bold.ttf");
+}
+
+.nav-bar{
+    padding: 3vh 2vw;
+    width: 100%;
+    background-color: rgb(241,240,238);
+    font-family: gilroy;
+    font-weight: 100;
+  }
+  .top-nb{
+    padding: 1vh 0vw;
+    width: 100%;
+    /* background-color: rgb(165, 29, 29); */
+  }
+  .top-nb{
+    display: flex;
+    justify-content: end;
+    gap: 4vmax;
+  }
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  .bottom-nb{
+    position: relative;
+    padding: 1vh 0vw;
+    width: 100%;
+    /* background-color: rgb(18, 135, 10); */
+    display: flex;
+    justify-content: end;
+  }
+  .bottom-nb>h1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .login{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .signup{
+    padding: .5vh .5vw;
+    display: flex;
+    align-items: center;
+  }
+  .search-box{
+    border-radius: 50px;
+    margin-right: 15px;
+  }
+  .search-box input{
+    border: none;
+    border-radius: 50px;
+    background-color:  rgb(241,240,238);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;;
+    outline: none;
+  }
+  .search-box>i{
+    font-size: 1.5vw;
+    color: rgb(67, 61, 61);
+    cursor: pointer;
+  }
+  /* ______________nav-bar css code end here__________________ */
