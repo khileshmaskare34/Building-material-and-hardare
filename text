@@ -1,48 +1,54 @@
-   <!-- <li><input type="checkbox" name="" id="" /><%= results[i].subcategory_name %></li> -->
-                
-<!-- Subcategory links -->
-<!-- <li><a class="subcategory-link" href="/shop/<%= results[i].category_id %>/<%= results[i].subcategory_id %>"><%= results[i].subcategory_name %></a></li> -->
-
-<!-- <li><a class="subcategory-link" href="/shop/<%= results[i].category_id %>/<%= results[i].subcategory_id %>"><%= results[i].subcategory_name %></a></li> luck -->
-
-
-
-
-
-
-<% for(var i=0;i<results.length;i++){ %>
-    <!-- Category links -->
-<li><a class="category-link" href="/shop/<%= results[i].category_id %>"><%= results[i].category_name %></a></li>
-
-<%}%>
-
-
-<% for(var i=0;i<results.length;i++){ %>
-    <!-- Subcategory links -->
-    <li><a class="subcategory-link" href="/shop/<%= results[i].category_id %>/<%= results[i].subcategory_id %>"><%= results[i].subcategory_name %></a></li>
-                    <%}%>
-
-
-exports.shop_category_subcategory_ids = (req, res)=>{
-    let categoryId = req.params.categoryId;
-    let subcategoryId = req.params.subcategoryId;
-    let query = 'SELECT shop.*, category.category_name, sub_category.subcategory_name FROM shop INNER JOIN category ON shop.category_id = category.id INNER JOIN sub_category ON shop.subcategory_id = sub_category.id';
-    
-    if (categoryId && subcategoryId) {
-      query += ` WHERE shop.category_id = ${categoryId} AND shop.subcategory_id = ${subcategoryId}`;
-    } else if (categoryId) {
-      query += ` WHERE shop.category_id = ${categoryId}`;
-    }
-  
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error('Error querying database:', err);
-        res.status(500).send('Error querying database');
-        return;
+<script>
+    $(document).ready(function() {
+      function fetchCategoriesAndSubcategories() {
+        $.get('/shop/all_categories', function(categoriesData) {
+          $('.categoriesDiv').html(categoriesData); // Update categoriesDiv with all categories and subcategories
+        });
       }
   
-      console.log(results+"new data");
-      res.render('shop', { results });
-      console.log(results);
+      fetchCategoriesAndSubcategories(); // Fetch categories and subcategories initially
+  
+      $('a.category-link, a.subcategory-link').click(function(event) {
+        event.preventDefault(); // Prevent default link behavior
+  
+        let categoryId = $(this).attr('href').split('/')[2]; // Extract category ID from URL
+        let subcategoryId = $(this).attr('href').split('/')[3]; // Extract subcategory ID from URL
+        
+        let url = subcategoryId ? `/shop/${categoryId}/${subcategoryId}` : `/shop/${categoryId}`;
+        
+        $.get(url, function(data) {
+          $('.productsDiv').html(data); // Update shop content with filtered results
+          fetchCategoriesAndSubcategories(); // Fetch categories and subcategories again after clicking a link
+        });
+      });
     });
-}
+  </script>
+
+
+
+// $(document).ready(function() {
+    //     const api_url = "/shopp"; 
+    
+    //     async function getapi(url) {
+            
+    //       console.log("line1")
+    //             const response = await fetch(url);
+    //       console.log("line2")
+    
+    //             const data = await response.json();
+    //       console.log("line3")
+    
+    //             console.log(data);
+    //             show(data);
+            
+    //     }
+    
+        
+    //     window.onclick = function() {
+    //         getapi(api_url); 
+    //     };
+    // });
+
+
+      <!-- Category links -->
+               <!-- <li><a class="category-link" href="/shop/<%= category[i].id %>"><%= category[i].category_name %></a></li> -->

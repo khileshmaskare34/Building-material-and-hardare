@@ -1,0 +1,71 @@
+ <!-- <li><a class="category-link" href="#"><%= category[i].category_name %></a></li> -->
+
+
+ document.querySelectorAll('.category-link').forEach(link => {
+    link.addEventListener('click', function(event) {
+      // event.preventDefault();
+       
+      const categoryId = this.getAttribute('data-category-id');
+      console.log("Category ID:", categoryId);
+      
+      fetch(`/shop/${categoryId}`)
+        .then(response => response.text())
+        .then(data => {
+          console.log("fetch khilesh")
+          $('.productsDiv').html(data); 
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  });
+
+
+
+
+
+
+<!-- secand -->
+  document.querySelectorAll('.category-link').forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+       
+      const categoryId = this.getAttribute('data-category-id');
+      console.log("Category ID:", categoryId);
+      
+      fetch(`/shop/${categoryId}`)
+        .then(response => response.text())
+        .then(data => {
+          console.log("fetch khilesh")
+          $('.productsDiv').html(data); 
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  });
+  
+
+
+
+
+  <div class="productsDiv">
+
+    <% for(var i = 0; i<shop.length; i++){ %>
+    <div class="product">
+      <div class="imgDiv">
+        <img src="/images/<%= shop[i].img_1 %>" alt="" />
+      </div>
+      <div class="prodContent">
+        <h6 class="prodName"><%= shop[i].name %></h6>
+        <span class="priceSpan">
+          <p class="retailPrice">INR-<%= shop[i].price %></p>
+          <p class="mrp"><%= shop[i].mrp %> INR</p></span
+        >
+        <button class="addBtn">Add to cart</button>
+      </div>
+    </div> 
+    <%}%>
+
+  </div>
+
+
+
+
+<li><a class="subcategory-link" href="/shop/<%= subcategory[i].id %>"><%= subcategory[i].subcategory_name %></a></li>

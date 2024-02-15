@@ -18,12 +18,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
+
   <body>
     <div class="main">
      <%- include('header.ejs') -%>
 
-      <!-------------------------------- Shop content -------------------------------------->
+      <!------------------Shop content ------------------------>
+   
 
       <div class="shopBox">
         <div class="shop-top">
@@ -53,77 +56,40 @@
               <h6>CATEGORY</h6>
               <ul>
               <% for(var i=0;i<category.length;i++){ %>
-                  <!-- Category links -->
-               <li><a class="category-link" href="/shop/<%= category[i].id %>"><%= category[i].category_name %></a></li>
-              
+
+                <li><a class="category-link" href="#" data-category-id="<%= category[i].id %>"><%= category[i].category_name %></a></li>
+
               <%}%>
               </ul>
             </div>
 
-            <!-- sub-category -->
+<!------------------ sub-category links start here--------------------------- -->
             <div class="scrollFilterBox">
               <h6>SUB-CATEGORY</h6>
               <ul>
               <% for(var i=0;i<subcategory.length;i++){ %>
-                  <!-- Subcategory links -->
-                <li><a class="subcategory-link" href="/shop/<%= subcategory[i].id %>"><%= subcategory[i].subcategory_name %></a></li>
+
+                <li><a class="subcategory-link" href="#" data-subcategory-id="<%= subcategory[i].id %>"><%= subcategory[i].subcategory_name %></a></li>
+
               <%}%>
               </ul>
             </div>
+<!-- ----------------sub-category links end here------------------------- -->
           </div>
-          <div class="productsDiv">
-
-            <% for(var i = 0; i<shop.length; i++){ %>
-            <div class="product">
-              <div class="imgDiv">
-                <img src="/images/<%= shop[i].img_1 %>" alt="" />
-              </div>
-              <div class="prodContent">
-                <h6 class="prodName"><%= shop[i].name %></h6>
-                <span class="priceSpan">
-                  <p class="retailPrice">INR-<%= shop[i].price %></p>
-                  <p class="mrp"><%= shop[i].mrp %> INR</p></span
-                >
-                <button class="addBtn">Add to cart</button>
-              </div>
-            </div> 
-            <%}%>
-
+          <div class="item-content">
+            <%- include('product_partial.ejs') -%>
           </div>
         </div>
       </div>
       
-
-
-       <script>
-        $(document).ready(function() {
-          function fetchCategoriesAndSubcategories() {
-            $.get('/shop/all_categories', function(categoriesData) {
-              $('.categoriesDiv').html(categoriesData); // Update categoriesDiv with all categories and subcategories
-            });
-          }
       
-          fetchCategoriesAndSubcategories(); // Fetch categories and subcategories initially
-      
-          $('a.category-link, a.subcategory-link').click(function(event) {
-            event.preventDefault(); // Prevent default link behavior
-      
-            let categoryId = $(this).attr('href').split('/')[2]; // Extract category ID from URL
-            let subcategoryId = $(this).attr('href').split('/')[3]; // Extract subcategory ID from URL
-            
-            let url = subcategoryId ? `/shop/${categoryId}/${subcategoryId}` : `/shop/${categoryId}`;
-            
-            $.get(url, function(data) {
-              $('.productsDiv').html(data); // Update shop content with filtered results
-              fetchCategoriesAndSubcategories(); // Fetch categories and subcategories again after clicking a link
-            });
-          });
-        });
-      </script>
+        
+       
 
-
+      
       <%- include('footer.ejs') -%>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
@@ -137,6 +103,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
     <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/shop.js"></script>
   </body>
 </html>

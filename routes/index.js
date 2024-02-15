@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var connection = require("../models/config");
-const { shop, shop_category_subcategory_ids, shop_filter_by_subcategory, shop_filter_by_category } = require('../controllers/shop');
+const { shop, shop_category_subcategory_ids, shop_filter_by_subcategory, shop_filter_by_category, shop1 } = require('../controllers/shop');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,14 +10,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/product', (req, res)=>{
-  res.render('product');
-})
+  connection.query('SELECT * FROM product', (err, results)=>{
+      if(err){
+          console.error('Error fetching products:', err);
+          res.status(500).send("Error");
+      } else {
+          console.log("Products retrieved successfully:", results);
+          res.render('product',{results });
+      }
+  });
+});
+
 
 router.get('/shop',  shop);
+
+router.get('/shopp', shop1);
 
 
 
 router.get('/shop/:categoryId?', shop_filter_by_category);
+
+// router.get('/shop/:subcategoryId?', shop_filter_by_category);
+
 
 
 

@@ -92,14 +92,22 @@
     margin-left: 2vmax;
   }
   
-  .productsDiv {
+  /* khielsh */
+  .item-content{
     width: 85%;
     height: 100%;
     padding: 2vmax 3vmax;
-    /* display:; */
+    /* background-color: red; */
+  }
+  .item-content .productsDiv {
+    /* width: 85%; */
+    /* height: 100%; */
+    /* padding: 2vmax 3vmax; */
+    width: 100%;
+    height: 100%;
   }
   
-  .product {
+  .productsDiv .product {
     width: calc(85% / 4);
     height: 55vh;
     display: inline-block;
