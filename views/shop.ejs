@@ -3,6 +3,7 @@
   <head>
     <title>shop page</title>
     <link rel="stylesheet" href="/stylesheets/shop.css" />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -19,11 +20,24 @@
     />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/header.css">
+
   </head>
 
   <body>
+    
+    <div class="nav-bar">
+      <div class="top-nb">
+          <a href="">About</a>
+          <a href="">Blogs</a>
+          <a href="">Recent news</a>
+          <a href="">Contact</a>
+      </div>
+      <div class="bottom-nb">
+          <h1>BUILDINGMATERIAL</h1>
+      </div>
+    </div>
     <div class="main">
-     <%- include('header.ejs') -%>
 
       <!------------------Shop content ------------------------>
    
@@ -40,7 +54,10 @@
         </div>
 
         <div class="shopContent">
+<!-- filter-box -->
           <div class="filters">
+
+    <!---------------------- price-box filter start here---------------- -->
             <div class="priceBoxFilter">
               <h6>Price</h6>
               <ul>
@@ -50,32 +67,33 @@
                 </li>
               </ul>
             </div>
+    <!---------------------- price-box filter end here---------------- -->
 
-            <!-- category -->
-            <div class="scrollFilterBox">
+
+    <!------------------ category links start here------------------------->
+            <div class="scrollFilterBox cat">
               <h6>CATEGORY</h6>
-              <ul>
-              <% for(var i=0;i<category.length;i++){ %>
-
-                <li><a class="category-link" href="#" data-category-id="<%= category[i].id %>"><%= category[i].category_name %></a></li>
-
-              <%}%>
-              </ul>
+              <div class="box-selector">
+               
+              </div>
             </div>
 
-<!------------------ sub-category links start here--------------------------- -->
-            <div class="scrollFilterBox">
+           
+           
+    <!------------------category-links end here---------------------------->
+
+
+    <!------------------ sub-category links start here--------------------->
+            <div class="scrollFilterBox subcat">
               <h6>SUB-CATEGORY</h6>
-              <ul>
-              <% for(var i=0;i<subcategory.length;i++){ %>
+               <div class="box-selector">
 
-                <li><a class="subcategory-link" href="#" data-subcategory-id="<%= subcategory[i].id %>"><%= subcategory[i].subcategory_name %></a></li>
-
-              <%}%>
-              </ul>
+               </div>
             </div>
-<!-- ----------------sub-category links end here------------------------- -->
+    <!-- ----------------sub-category links end here----------------------->
           </div>
+<!-- filter-box -->
+
           <div class="item-content">
             <%- include('product_partial.ejs') -%>
           </div>

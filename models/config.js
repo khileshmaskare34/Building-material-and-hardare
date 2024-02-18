@@ -1,4 +1,5 @@
 const mysql = require('mysql'); // Require the mysql module
+const { connect, param } = require('../routes');
 
 // MySQL Connection
 const connection = mysql.createConnection({
@@ -15,4 +16,16 @@ connection.connect((err) => {
   console.log('Connected to MySQL database as id ' + connection.threadId);
 });
 
-module.exports = connection;
+const queryDatabase = async (connect, sql, params) => new Promise(
+  (resolve, reject)=>{
+    const handleFunction = (err, result)=>{
+      if(err){
+        reject(err)
+        return
+      }
+      resolve(result)
+    }
+    connect.query(sql, params, handleFunction)
+  }
+)
+module.exports = {connection, queryDatabase};

@@ -1,0 +1,70 @@
+const {connection, queryDatabase} = require('../models/config')
+
+exports.productId = (req, res)=>{
+    const productId = req.params.id;
+    console.log("productId", productId)
+
+    const sql = `SELECT * FROM shop where shop_id=?`
+    connection.query(sql, [productId], (error, results) => {
+      if (error) {
+        console.error('Error  product:', error);
+        res.status(500).send('Error fetc product');
+        return;
+      }
+
+    connection.query('SELECT * FROM shop',(err, itemCart) => {
+      if (err) {
+        console.error('Error  product:', err);
+        res.status(500).send('Error fetc product');
+        return;
+      }
+  
+      const sql1 = `SELECT * FROM product_size where shop_id=?`
+      connection.query(sql1, [productId], (error, results1)=>{
+        if(error){
+            console.error('Error  product:', error);
+            res.status(500).send('Error fetc product');
+            return;
+        }
+
+        const sizeNames = [];
+        const promises = [];
+        
+        results1.forEach(row => {
+            const size_id = row.size_id;
+            const sql3 = `SELECT * FROM size where size_id=?`;
+        
+            // Create a promise for each query
+            const promise = new Promise((resolve, reject) => {
+                connection.query(sql3, [size_id], (error, size) => {
+                    if (error) {
+                        console.error('Error fetching size:', error);
+                        reject(error);
+                    } else {
+                        // console.log("size----", size[0].name);
+                        sizeNames.push(size[0].name);
+                        resolve();
+                    }
+                });
+            });
+        
+            promises.push(promise); // Add the promise to the promises array
+        });
+        
+        // Wait for all promises to resolve
+        Promise.all(promises)
+            .then(() => {
+                var sizeN = sizeNames;
+                console.log("name", sizeN); 
+                const product = results[0];
+                console.log("item-cart", itemCart)
+                res.render('product', {product, sizeN, itemCart})
+            })
+            .catch(error => {
+                console.error('Error fetching size:', error);
+                res.status(500).send('Error fetching size');
+            });
+    })
+    });
+})
+}

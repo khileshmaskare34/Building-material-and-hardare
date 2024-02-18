@@ -6,6 +6,8 @@
     <title>Product Page</title>
     
     <link rel="stylesheet" href="/stylesheets/product.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+
     <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
     
     <link
@@ -18,7 +20,18 @@
 
 </head>
 <body>
-    <%- include('header.ejs') -%>
+    
+    <div class="nav-bar">
+        <div class="top-nb">
+            <a href="">About</a>
+            <a href="">Blogs</a>
+            <a href="">Recent news</a>
+            <a href="">Contact</a>
+        </div>
+        <div class="bottom-nb">
+            <h1>BUILDINGMATERIAL</h1>
+        </div>
+    </div>
 
     <div class="product">
         <!-- left-box -->
@@ -30,7 +43,7 @@
                     <div class="row">
                     <div class="image">
                         <div class="img-wrapper">
-                        <a href="/images/chimney.webp"><img src="/images/chimney.webp" class="img-responsive"></a>
+                        <a href="/images/<%= product.img_1 %>"><img src="/images/<%= product.img_1 %>" class="img-responsive"></a>
                         <div class="img-overlay">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
@@ -38,7 +51,7 @@
                     </div>
                     <div class="image">
                         <div class="img-wrapper">
-                        <a href="/images/image2.jpg"><img src="/images/image2.jpg" class="img-responsive"></a>
+                        <a href="/images/<%= product.img_2 %>"><img src="/images/<%= product.img_2 %>" class="img-responsive"></a>
                         <div class="img-overlay">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
@@ -54,9 +67,10 @@
         <div class="p-right-box">
             <!-- title-box -->
             <div class="title-box">
-                <h2>Door Handle Bar</h2>
-                <h3>Boys Yellow Cotton T-shirt</h3>
-                <div class="rating-box">
+                <h2><%= product.name %></h2>
+                <h3><%= product.description %></h3>
+                <!-- ____________rating box____________ -->
+                <!-- <div class="rating-box">
                     <div class="rb-left">
                         <h5>5.6 
                             <i class="ri-star-s-fill"></i>
@@ -65,47 +79,35 @@
                     <div class="rb-right">
                     <p>29 Ratings</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- price-box -->
             <div class="price-box">
                 <div class="mrp-price">
-                    <h3>$ 170 </h3>
-                    <h4>MRP <span class="mrp">$ 500</span></h4>
+                    <h3>Rs <%= product.price %></h3>
+                    <h4>MRP <span class="mrp">Rs <%= product.mrp %></span></h4>
                     <h3 class="off" >(Rs. 499 OFF)</h3>
                 </div>
 
                 <h5>inclusive of all taxes</h5>
 
+                <!-- size-box -->
                 <div class="select-size">
-                <h4>SELECT SIZE (Age Group)</h4>
-                <a href="">SIZE CHART <i class="ri-arrow-right-s-line"></i>
-                </a>
+                 <h4>SELECT SIZE (Age Group)</h4>
+                 <a href="">SIZE CHART <i class="ri-arrow-right-s-line"></i>
+                 </a>
                 </div>
                 <div class="size-box">
-                    
-                    <label>
-                        <input type="radio" name="size" value="4-5Y" hidden>
-                        <div class="size-circle">4-5Y</div>
+                    <% for(var i = 0; i< sizeN.length; i++){ %>
+                    <label class="btn btn-light  size-btn">
+                        <input type="radio" class="size-radio" id="size_s" name="size" value="4-5Y" hidden>
+                        
+                        <div class="size-circle "><%= sizeN[i] %></div>
                     </label>
-                    <label>
-                        <input type="radio" name="size" value="4-5Y" hidden>
-                        <div class="size-circle">5-7Y</div>
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="4-5Y" hidden>
-                        <div class="size-circle">7-10Y</div>
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="4-5Y" hidden>
-                        <div class="size-circle">10-15Y</div>
-                    </label>
-                    <label>
-                        <input type="radio" name="size" value="4-5Y" hidden>
-                        <div class="size-circle">15-18Y</div>
-                    </label>
-                    
+                    <%}%>
                 </div>
+
+                <!-- payment-box -->
                 <div class="payment-box">
                     <a class="pyt-btn" href="">
                     <i class="ri-shopping-bag-line"></i>
@@ -113,7 +115,7 @@
                     </a>
 
                     <a class="pyt-btn" href="">
-                        <h4>Pay Now</h4>
+                        <h4>Enquiry</h4>
                     </a>
                     
                 </div>
@@ -145,8 +147,8 @@
                 <h5>Machine wash</h5>
             </div>
 
-            <!-- star rating  -->
-            <div class="star-rating">
+            <!------____________________ star rating ___________________________ -->
+            <!-- <div class="star-rating">
                 <div class="rating-hadline">
                 <h4>RATINGS</h4>
                 <i class="ri-star-s-fill"></i>
@@ -189,10 +191,10 @@
                 </div>
 
 
-            </div>
+            </div> -->
 
-            <!-- customer reviews -->
-            <div class="customer-rev">
+            <!--___________________________________- customer reviews _______________________________-->
+            <!-- <div class="customer-rev">
             <h4>Customer Reviews (3)</h4>
             <div class="customer-box">
                 <div class="cr-star">
@@ -212,7 +214,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+            </div> -->
 
             <!-- Product Code -->
             <div class="product-code">
@@ -224,77 +226,22 @@
 
     <!-- _____item-box html code________ -->
     <div class="item-box">
+        <% for(var i = 0; i< itemCart.length; i++){ %>
         <div class="item">
             <div class="img">
-                <img src="./images/chimney.webp" alt="">
+                <img src="/images/<%= itemCart[i].img_1 %>" alt="">
             </div>
             <div class="img-text">
-                <h3>kids wear tup</h3>
-                <p>the is the riht place to </p>
+                <h3><%= itemCart[i].name %></h3>
+                <p><%= itemCart[i].description %> </p>
                 <div class="mrp-price">
-                <h3>Rs 170 </h3>
-                <h4>MRP <span class="mrp">$ 500</span></h4>
+                <h3>Rs <%= itemCart[i].price %></h3>
+                <h4>MRP <span class="mrp">Rs- <%= itemCart[i].mrp %></span></h4>
                 <h3 class="off" >(Rs. 499 OFF)</h3>
             </div>
             </div>
         </div>
-        <div class="item">
-            <div class="img">
-                <img src="./images/chimney.webp" alt="">
-            </div>
-            <div class="img-text">
-                <h3>kids wear tup</h3>
-                <p>the is the riht place to </p>
-                <div class="mrp-price">
-                <h3>Rs 170 </h3>
-                <h4>MRP <span class="mrp">$ 500</span></h4>
-                <h3 class="off" >(Rs. 499 OFF)</h3>
-            </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="img">
-                <img src="./images/chimney.webp" alt="">
-            </div>
-            <div class="img-text">
-                <h3>kids wear tup</h3>
-                <p>the is the riht place to </p>
-                <div class="mrp-price">
-                 <h3>Rs 170 </h3>
-                 <h4>MRP <span class="mrp">$ 500</span></h4>
-                 <h3 class="off" >(Rs. 499 OFF)</h3>
-               </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="img">
-                <img src="./images/chimney.webp" alt="">
-            </div>
-            <div class="img-text">
-                <h3>kids wear tup</h3>
-                <p>the is the riht place to </p>
-                <div class="mrp-price">
-                    <h3>Rs 170 </h3>
-                    <h4>MRP <span class="mrp">$ 500</span></h4>
-                    <h3 class="off" >(Rs. 499 OFF)</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="img">
-                <img src="./images/chimney.webp" alt="">
-            </div>
-            <div class="img-text">
-                <h3>kids wear tup</h3>
-                <p>the is the riht place to </p>
-                <div class="mrp-price">
-                    <h3>Rs 170 </h3>
-                    <h4>MRP <span class="mrp">$ 500</span></h4>
-                    <h3 class="off" >(Rs. 499 OFF)</h3>
-               </div>
-            </div>
-        </div>
+        <%}%>
     </div>
     <%- include('footer.ejs') -%>
 

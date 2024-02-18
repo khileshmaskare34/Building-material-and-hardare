@@ -24,7 +24,7 @@ html, body{
     /* height: 100%; */
     /* background-color: red; */
 }
-/* _________top__________ */
+/* ==========================top============================================== */
 
 /* ____________left-box_____________ */
 .p-left-box{
@@ -246,27 +246,34 @@ html, body{
 .select-size>a>i{
     font-size: 1.3vmax;
 }
-   /* size-box */
+   /* size-box =========*/
    .size-box{
     margin-top: 2vmax;
     display: flex;
     align-items: center;
-    gap: 2vmax;
-    width: 30vw;
-    height: 10vh;
+    gap: 1vmax;
+    /* background-color: red;    */
    }
-   .size-box .size-circle{
+
+ .size-btn{
+    display: inline-block;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 10px 15px;
     border-radius: 50px;
-    width: 70px;
-    height: 50px;
-    color: rgb(59, 56, 56);
-    font-family: gilroy-b;
-    border: 1px solid rgb(82, 74, 74);
-   }
+    margin-right: 10px;
+    background-color: rgb(238, 240, 240);
+    color: black;
+}
+                                  
+.size-btn.active {
+  background-color: #343a40;
+  color: white;
+}
+        
+.size-radio {
+  display: none;
+}
+ 
    
     /* payment-box */
     .payment-box{
@@ -475,6 +482,7 @@ html, body{
         /* height: 10vh; */
         width: 100%;
         font-family: gilroy;
+        flex-wrap: wrap;
     }
     .item-box .item{
         width: 15vmax;

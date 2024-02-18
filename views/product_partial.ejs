@@ -10,21 +10,6 @@
 <body>
       <div class="productsDiv">
 
-        <% for(var i = 0; i<shop.length; i++){ %>
-        <div class="product">
-          <div class="imgDiv">
-            <img src="/images/<%= shop[i].img_1 %>" alt="" />
-          </div>
-          <div class="prodContent">
-            <h6 class="prodName"><%= shop[i].name %></h6>
-            <span class="priceSpan">
-              <p class="retailPrice">INR-<%= shop[i].price %></p>
-              <p class="mrp"><%= shop[i].mrp %> INR</p></span
-            >
-            <button class="addBtn">Add to cart</button>
-          </div>
-        </div> 
-        <%}%>
     
       </div>
 </body>

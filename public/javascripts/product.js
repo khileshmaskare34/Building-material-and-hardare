@@ -86,3 +86,17 @@ $( ".img-wrapper" ).hover(
     $("#overlay").fadeOut("slow");
   });
 
+function size_button(){
+  document.addEventListener("DOMContentLoaded", function() {
+    var sizeRadios = document.querySelectorAll('.size-radio');
+      sizeRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          document.querySelectorAll('.size-btn').forEach(function(btn) {
+              btn.classList.remove('active');
+          });
+          this.parentNode.classList.add('active');
+        });
+       });
+  });
+}
+size_button()
