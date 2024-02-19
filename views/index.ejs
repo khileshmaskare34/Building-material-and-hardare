@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <div id="popup-box" class="popup">
+    <!-- <div id="popup-box" class="popup">
         <div class="popup-content">
             <div class="popup-img">
                 <img src="./images/chimney.webp" alt="">
@@ -33,10 +33,10 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
+    <%- include('header.ejs') -%>
     <div class="main" id="main">
           
-          <%- include('header.ejs') -%>
        
         <div class="option-nav">
             <h4>Door Fitting And Handles</h4>
@@ -125,7 +125,9 @@
                 <div class="child-box">
                     <h1>ESTIMATE YOUR COST</h1>
                     <h5>Tell us about your project and we’ll give you an estimate for your Semihandmade cabinet doors.</h5>
-                    <button class="btn">GET STARTED</button>
+                    <a href="/get-started">
+                        <button class="btn">GET STARTED</button>
+                    </a>
                 </div>
             </div>
         </div>

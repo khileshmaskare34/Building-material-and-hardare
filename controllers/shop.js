@@ -70,7 +70,7 @@ exports.shop = (req, res)=>{
 
 
 exports.category_by_filter = async (req, res)=>{
-    connection.query(`select distinct category_id from shop`, (err, data)=>{
+    connection.query(`select * from category`, (err, data)=>{
     if(data.length>0){
         res.json({
             message: 'success',
@@ -87,7 +87,7 @@ exports.category_by_filter = async (req, res)=>{
 
 
 exports.subcategory_by_filter = (req, res)=>{
-    connection.query(`select subcategory_id from shop`, (err, data1)=>{
+    connection.query(`select * from sub_category`, (err, data1)=>{
         if(data1.length>0){
             res.json({
                 message: 'success',
@@ -103,86 +103,6 @@ exports.subcategory_by_filter = (req, res)=>{
 }
 
 
-// exports.allcat = async (req, res) => {
-//     const { category, subcategory } = req.query;
-//     console.log("Category:", category);
-//     console.log("subCategory:", subcategory)
-//     let sql = `SELECT DISTINCT shop.* FROM shop`;
-
-//     if (category) {
-//         sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id = ${category}`;
-//     } else {
-//         sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
-//     }
-
-//     console.log("Initial SQL:", sql);
-
-//     if (subcategory) {
-//         let subfilter = subcategory.join("','");
-//         sql += ` AND shop.subcategory IN ('${subfilter}')`;
-//     }
-
-//     console.log("Final SQL:", sql);
-
-//     try {
-//         const data = await queryDatabase(connection, sql);
-//         if (data.length > 0) {
-//             res.json({
-//                 message: 'Success',
-//                 data: data
-//             });
-//         } else {
-//             res.json({
-//                 message: 'No data found',
-//                 data: []
-//             });
-//         }
-//     } catch (error) {
-//         console.error("Error executing SQL query:", error);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// };
-
-// exports.allcat = async (req, res) => {
-//     const { category, subcategory } = req.query;
-//     console.log("Category:", category);
-//     console.log("Subcategory:", subcategory);
-
-//     let sql = `SELECT DISTINCT shop.* FROM shop`;
-
-    
-//     if (category) {
-//         sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id = ${category}`;
-//     } else {
-//         sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
-//     }
-
-//     if (subcategory) {
-//         sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id WHERE sub_category.subcategory_id = ${subcategory}`;
-//     } else {
-//         sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id`;
-//     }
-
-//     console.log("Initial SQL:", sql);
-
-//     try {
-//         const data = await queryDatabase(connection, sql);
-//         if (data.length > 0) {
-//             res.json({
-//                 message: 'Success',
-//                 data: data
-//             });
-//         } else {
-//             res.json({
-//                 message: 'No data found',
-//                 data: []
-//             });
-//         }
-//     } catch (error) {
-//         console.error("Error executing SQL query:", error);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// };
 
 exports.allcat = async (req, res) => {
     const { category, subcategory } = req.query;
@@ -193,15 +113,16 @@ exports.allcat = async (req, res) => {
 
     // Join with category table if category filter is provided
     if (category) {
-        sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id = ${category}`;
+        sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id IN (${category})`;
     } else {
         sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
     }
 
     // Join with subcategory table if subcategory filter is provided
     if (subcategory) {
-        sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id WHERE sub_category.subcategory_id = ${subcategory}`;
+        sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id WHERE sub_category.subcategory_id IN (${subcategory})`;
     }
+
 
     console.log("Initial SQL:", sql);
 

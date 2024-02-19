@@ -31,14 +31,17 @@
   }
   .bottom-nb{
     position: relative;
-    padding: 1vh 0vw;
+    padding: 3vh 0vw;
     width: 100%;
     /* background-color: rgb(18, 135, 10); */
     display: flex;
+    align-items: center;
     justify-content: end;
   }
   .bottom-nb>h1{
-    position: absolute;
+    /* margin-right: 10vmax; */
+    font-size: 2vmax;
+    position: absolute; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -48,6 +51,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+   
   }
   
   .signup{
@@ -72,3 +76,62 @@
     cursor: pointer;
   }
   /* ______________nav-bar css code end here__________________ */
+
+ /* Your existing CSS */
+
+.menu-toggle {
+  display: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Media query for tablets */
+@media screen and (max-width: 768px) {
+  .top-nb {
+      display: none;
+  }
+
+  .bottom-nb {
+      justify-content: space-between;
+  }
+
+  .menu-toggle {
+      display: block;
+      cursor: pointer;
+  }
+
+  .links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: rgb(241, 240, 238);
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Media query for phones */
+@media screen and (max-width: 600px) {
+  .nav-bar {
+      padding: 10px;
+  }
+
+  .bottom-nb {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .bottom-nb h1 {
+      margin-bottom: 10px;
+  }
+}
+
+/* Your existing CSS */

@@ -1,160 +1,18 @@
-<script>
-    $(document).ready(function() {
-      function fetchCategoriesAndSubcategories() {
-        $.get('/shop/all_categories', function(categoriesData) {
-          $('.categoriesDiv').html(categoriesData); // Update categoriesDiv with all categories and subcategories
-        });
-      }
-  
-      fetchCategoriesAndSubcategories(); // Fetch categories and subcategories initially
-  
-      $('a.category-link, a.subcategory-link').click(function(event) {
-        event.preventDefault(); // Prevent default link behavior
-  
-        let categoryId = $(this).attr('href').split('/')[2]; // Extract category ID from URL
-        let subcategoryId = $(this).attr('href').split('/')[3]; // Extract subcategory ID from URL
-        
-        let url = subcategoryId ? `/shop/${categoryId}/${subcategoryId}` : `/shop/${categoryId}`;
-        
-        $.get(url, function(data) {
-          $('.productsDiv').html(data); // Update shop content with filtered results
-          fetchCategoriesAndSubcategories(); // Fetch categories and subcategories again after clicking a link
-        });
-      });
-    });
-  </script>
+exports.allcat = async (req, res) => {
+  const { category, subcategory } = req.query;
+  console.log("Category:", category);
+  console.log("Subcategory:", subcategory);
 
+  let sql = `SELECT DISTINCT shop.* FROM shop`;
 
+  // Join with category table if category filter is provided
+  if (category) {
+      sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id IN (${category})`;
+  } else {
+      sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
+  }
 
-// $(document).ready(function() {
-    //     const api_url = "/shopp"; 
-    
-    //     async function getapi(url) {
-            
-    //       console.log("line1")
-    //             const response = await fetch(url);
-    //       console.log("line2")
-    
-    //             const data = await response.json();
-    //       console.log("line3")
-    
-    //             console.log(data);
-    //             show(data);
-            
-    //     }
-    
-        
-    //     window.onclick = function() {
-    //         getapi(api_url); 
-    //     };
-    // });
-
-
-      <!-- Category links -->
-               <!-- <li><a class="category-link" href="/shop/<%= category[i].id %>"><%= category[i].category_name %></a></li> -->
-
-
-
-
-
-
-
-
-
-
-// khilesh maskare
-
-
-
-
-               
-
-// exports.shop_filter_by_category = (req, res) => {
-//     let categoryId = req.params.categoryId;
-
-//     let query = 'SELECT * FROM shop WHERE category_id='+categoryId
-//     ;
-    
-//     connection.query(query, (err, shop) => {
-//       if (err) {
-//         console.error('error catid:', err);
-//         res.status(500).send('cartId');
-//         return;
-//       }
-//       connection.query('SELECT * FROM category', (err2, category)=>{
-//         if(err2){
-//             console.error('Error querying database:', err);
-//             res.status(500).send('Error querying database');
-//             return;
-//         }
-
-//         connection.query('SELECT * FROM sub_category', (err3, subcategory)=>{
-//             if(err3){
-//                 console.error('Error querying database:', err);
-//                 res.status(500).send('Error querying database');
-//                 return;
-//             }
-    
-//       res.render('shop', { shop, category, subcategory });
-//         })
-//     })
-//     });
-// }
-
-
-exports.shop_filter_by_category = (req, res) => {
-  let categoryId = req.params.categoryId;
-
-  let query = 'SELECT * FROM shop WHERE category_id='+categoryId;
-  
-  connection.query(query, (err, shop) => {
-      if (err) {
-          console.error('error catid:', err);
-          res.status(500).send('Error querying database');
-          return;
-      }
-      res.render('product_partial', { shop });
-  });
-}
-
-// exports.shop_filter_by_subcategory = (req, res)=>{
-//     let subcategoryId = req.params.subcategoryId;
-//     console.log("sub--c"+subcategoryId)
-// }
-
-// exports.shop_filter_by_subcategory = (req, res) => {
-
-//     let subcategoryId = req.params.subcategoryId;
- 
-
-//     console.log("khil"+subcategoryId)
-
-//     let query = 'SELECT * FROM shop WHERE subcategory_id='+subcategoryId
-//     ;
-  
-//     connection.query(query, (err, shop) => {
-//       if (err) {
-//         console.error('error subcart:', err);
-//         res.status(500).send('error subcart');
-//         return;
-//       }
-//       connection.query('SELECT * FROM category', (err2, category)=>{
-//         if(err2){
-//             console.error('Error querying database:', err);
-//             res.status(500).send('Error querying database');
-//             return;
-//         }
-
-//         connection.query('SELECT * FROM sub_category', (err3, subcategory)=>{
-//             if(err3){
-//                 console.error('Error querying database:', err);
-//                 res.status(500).send('Error querying database');
-//                 return;
-//             }
-  
-//       res.render('shop', { shop, category, subcategory });
-//         })
-//     })
-// })
-// }
-
+  // Join with subcategory table if subcategory filter is provided
+  if (subcategory) {
+      sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id WHERE sub_category.subcategory_id IN (${subcategory})`;
+  }

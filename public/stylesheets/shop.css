@@ -58,7 +58,8 @@
     justify-content: center;
     align-items: start;
     border-bottom: 1px solid rgb(214, 217, 214);
-    padding-top: 2vmax;
+    padding-top: 1vmax;
+    padding-left: 1vmax;
     height: 28vh;
     /* background-color: #007bb6; */
     overflow-y: scroll;
