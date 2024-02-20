@@ -62,7 +62,7 @@ fetch('/subcategory')
     });
     boxsubcat.innerHTML = html
   }) 
-  
+
 
   filterData();
   function getFilter(className) {
@@ -114,7 +114,6 @@ function filterData() {
                                 <span class="priceSpan">
                                     <p class="retailPrice">INR-${item.price}</p>
                                     <p class="mrp">${item.mrp} INR</p>
-                                    <p class="mrp">${item.category_id} INR</p>
                                 </span>
                                 <button class="addBtn">Add to cart</button>
                             </div>

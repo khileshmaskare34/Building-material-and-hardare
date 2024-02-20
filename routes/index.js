@@ -125,10 +125,10 @@ router.get("/clearCart", (req, res, next) => {
 });
 
 router.post("/addCart", async (req, res) => {
-  const { shop_id, size } = req.body;
+  const { shop_id, size, quantity } = req.body;
   const pid = shop_id;
   const vid = size;
-  const qty = 2;
+  const qty = quantity;
   console.log("its",pid, vid, qty)
 
   const ipAdd = ip.address();
@@ -149,7 +149,7 @@ router.post("/addCart", async (req, res) => {
 
     // Fetch price from provar table based on pid and vid
     const [rows, fields] = await pool.execute(
-      "SELECT price FROM provar WHERE pid = ? AND vid = ?",
+      "SELECT price FROM provar WHERE shop_id = ? AND vid = ?",
       [pid, vid]
     );
 

@@ -42,7 +42,7 @@ exports.productId = (req, res)=>{
                         reject(error);
                     } else {
                         // console.log("size----", size[0].name);
-                        sizeNames.push(variant[0].name);
+                        sizeNames.push(variant[0].v_name);
                         resolve();
                     }
                 });
