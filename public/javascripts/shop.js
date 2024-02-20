@@ -2,20 +2,46 @@ const boxcat = document.querySelector('.scrollFilterBox.cat .box-selector')
 const boxsubcat = document.querySelector('.scrollFilterBox.subcat .box-selector') 
 const boxfilterdata = document.querySelector('.productsDiv')
 
+const urlParams = new URLSearchParams(window.location.search);
+const categoryParam = urlParams.get('category');
+
+console.log("its",categoryParam);
+
+// Check the corresponding category checkbox based on the category parameter
+if (categoryParam) {
+    const checkbox = document.querySelector(`.common-selector.cat[value="${categoryParam}"]`);
+    if (checkbox) checkbox.checked = true;
+}
+
+
 fetch('/category')
   .then(res => res.json())
   .then(data=>{
     const categoryList = data.data
     console.log("catlist",categoryList)
     // const categoryData = <%= JSON.stringify(category) %>;
+    let params = new URLSearchParams(document.location.search);
+    let newid = params.get("category"); 
+     console.log(newid);
+  
+
 
     let html = ``
 
     categoryList.forEach(item => {
+        let isChecked = '';
+        console.log("newid", newid)
+        console.log("ohhhhh",item.category_id)
+
+        if(newid == item.category_id) {
+            isChecked = 'checked';
+        }
+
+
       html += `<div>
-                <label><input type="checkbox" class="common-selector cat" value="${item.category_id}">
-                ${item.category_name}</label>
-              </div>`
+      <label><input type="checkbox" class="common-selector cat" value="${item.category_id}" ${isChecked}>  
+      ${item.category_name}</label>
+   </div>`
     });
     boxcat.innerHTML = html
   })
@@ -36,12 +62,9 @@ fetch('/subcategory')
     });
     boxsubcat.innerHTML = html
   }) 
+  
 
   filterData();
-
-
-
-
   function getFilter(className) {
     let filter = [];
     let commonSelector = document.querySelectorAll(`.${className}.common-selector:checked`);
@@ -88,11 +111,10 @@ function filterData() {
                             </div>
                             <div class="prodContent">
                                 <h6 class="prodName">${item.name}</h6>
-                                <h6 class="prodName">cat- ${item.category_id}</h6>
-                                <h6 class="prodName">subcat- ${item.subcategory_id}</h6>
                                 <span class="priceSpan">
                                     <p class="retailPrice">INR-${item.price}</p>
                                     <p class="mrp">${item.mrp} INR</p>
+                                    <p class="mrp">${item.category_id} INR</p>
                                 </span>
                                 <button class="addBtn">Add to cart</button>
                             </div>

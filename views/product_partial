@@ -20,3 +20,70 @@
         <%}%>
     
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      router.post("/addCart", async (req, res) => {
+        // const { pid, qty, vid } = req.body;
+        const pid = 5;
+        const vid = 2;
+        const qty = 2;
+        const ipAdd = ip.address();
+      
+        try {
+          // Check if the combination of pid and vid already exists in the cart
+          const [existingRows] = await pool.execute(
+            "SELECT * FROM cart WHERE ipadd = ? AND pid = ? AND vid = ?",
+            [ipAdd, pid, vid]
+          );
+      
+          if (existingRows.length > 0) {
+            // If the combination of pid and vid already exists, return a message
+            return res.send(
+              "<script> alert('Item already exists in the cart') </script>"
+            );
+          }
+      
+          // Fetch price from provar table based on pid and vid
+          const [rows, fields] = await pool.execute(
+            "SELECT price FROM provar WHERE pid = ? AND vid = ?",
+            [pid, vid]
+          );
+      
+          if (rows.length === 0) {
+            return res
+              .status(404)
+              .json({ success: false, message: "Product variant not found." });
+          }
+      
+          const price = rows[0].price * qty;
+      
+          // Insert into cart table
+          await pool.query(
+            "INSERT INTO cart (ipadd, pid, vid, qty, price) VALUES (?, ?, ?, ?, ?)",
+            [ipAdd, pid, vid, qty, price]
+          );
+      
+          res.redirect("/cart");
+        } catch (error) {
+          console.error("Error adding product to cart:", error);
+          res.status(500).json({ success: false, message: "Internal server error." });
+        }
+      });

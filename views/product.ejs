@@ -21,17 +21,7 @@
 </head>
 <body>
     
-    <div class="nav-bar">
-        <div class="top-nb">
-            <a href="">About</a>
-            <a href="">Blogs</a>
-            <a href="">Recent news</a>
-            <a href="">Contact</a>
-        </div>
-        <div class="bottom-nb">
-            <h1>BUILDINGMATERIAL</h1>
-        </div>
-    </div>
+    <%- include('header2.ejs') -%>
 
     <div class="product">
         <!-- left-box -->
@@ -64,9 +54,15 @@
             
         </div>
         <!-- right-box -->
+    <form action="/addCart" method="post">
+
         <div class="p-right-box">
             <!-- title-box -->
             <div class="title-box">
+
+                <input type="text" value="<%= product.shop_id %>"  name="shop_id" >
+                <!-- <button type="">submit</button> -->
+
                 <h2><%= product.name %></h2>
                 <h3><%= product.description %></h3>
                 <!-- ____________rating box____________ -->
@@ -100,7 +96,7 @@
                 <div class="size-box">
                     <% for(var i = 0; i< sizeN.length; i++){ %>
                     <label class="btn btn-light  size-btn">
-                        <input type="radio" class="size-radio" id="size_s" name="size" value="4-5Y" hidden>
+                        <input type="radio" class="size-radio" id="size_s" name="size" value="<%= sizeN[i] %>" hidden>
                         
                         <div class="size-circle "><%= sizeN[i] %></div>
                     </label>
@@ -109,10 +105,11 @@
 
                 <!-- payment-box -->
                 <div class="payment-box">
-                    <a class="pyt-btn" href="">
+
+                   
                     <i class="ri-shopping-bag-line"></i>
-                    <h4>Add Cart</h4>
-                    </a>
+                    <button type="submit">Add Cart</button>
+                    
 
                     <a class="pyt-btn" href="">
                         <h4>Enquiry</h4>
@@ -221,6 +218,7 @@
             <h4><span class="product-text">Product Code:</span> 12345268</h4>
             </div>
         </div>
+    </form>
   
     </div>
 
@@ -228,6 +226,7 @@
     <div class="item-box">
         <% for(var i = 0; i< itemCart.length; i++){ %>
         <div class="item">
+            <div class="scroll">
             <div class="img">
                 <img src="/images/<%= itemCart[i].img_1 %>" alt="">
             </div>
@@ -240,6 +239,7 @@
                 <h3 class="off" >(Rs. 499 OFF)</h3>
             </div>
             </div>
+        </div>
         </div>
         <%}%>
     </div>

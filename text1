@@ -1,109 +1,44 @@
+const { category, subcategory } = req.query;
+console.log("Category:", category);
+console.log("Subcategory:", subcategory);
 
-<li><a class="category-link" href="#" data-category-id="<%= category[i].id %>"><%= category[i].category_name %></a></li>
+let sql = `SELECT DISTINCT shop.* FROM shop`;
 
-
-<label>
-                    <input type="checkbox" class="category-link" value="<%= category[i].id %>" data-category-id="<%= category[i].id %>" />
-                    <%= category[i].category_name %>
-                  </label>
-
-
-
-
-
-document.querySelectorAll('.category-checkbox').forEach(link => {
-  link.addEventListener('click', function(event) {
-    //  event.preventDefault();
-       
-      const categoryId = this.getAttribute('data-category-id');
-      console.log("Category ID:", categoryId);
-      
-      fetch(`/shop/${categoryId}`)
-          .then(response => response.text())
-          .then(data => {
-              // console.log("Fetched HTML content:", data);
-              
-              // Replace the inner HTML of productsDiv with the fetched HTML content
-              document.querySelector('.productsDiv').innerHTML = data;
-          })
-          .catch(error => console.error('Error fetching data:', error));
-  });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-const api_url = "/shopp";
-
-async function getapi(url) {
-  const response = await fetch(url);
-//   console.log(response);
-//   console.log("line1")
-  var resultdata = await response.json();
-//   console.log("line2")
-  var data = resultdata;
-//   console.log(data.shop);
-  if (response) {
-   
-    // console.log("this is category id"+response)
-  }
-//   show(data);
+// Join with category table if category filter is provided
+if (category) {
+    sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id IN (${category})`;
+} else {
+    sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
 }
 
-document.querySelectorAll('.category-link').forEach(checkbox => {
-    checkbox.addEventListener('change', function(event) {
-      //  event.preventDefault();
-      if (this.checked) {
-        const categoryName = this.parentElement.textContent.trim();
-        const checkboxName = this.getAttribute('name');
-        // console.log("Category Name:", categoryName);
-        // console.log("Checkbox Name:", checkboxName);
-      }
-        const categoryId = this.getAttribute('data-category-id');
-        console.log("Category ID:", categoryId);
-        
-        fetch(`/shop/${categoryId}`)
-            .then(response => response.text())
-            .then(data => {
-                // console.log("Fetched HTML content:", data);
-                
-                // Replace the inner HTML of productsDiv with the fetched HTML content
-                document.querySelector('.productsDiv').innerHTML = data;
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-});
+// Join with subcategory table if subcategory filter is provided
+if (subcategory) {
+    // If category filter was applied, we use AND instead of WHERE
+    if (category) {
+        sql += ` AND`;
+    } else {
+        sql += ` WHERE`;
+    }
+    sql += ` shop.subcategory_id IN (${subcategory})`;
+}
 
 
+// console.log("Initial SQL:", sql);
 
-document.querySelectorAll('.subcategory-link').forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-         
-        const subcategoryId = this.getAttribute('data-subcategory-id');
-        // console.log("sub-Category ID:", subcategoryId);
-        
-        fetch(`/shop/${subcategoryId}`)
-            .then(response => response.text())
-            .then(data => {
-                // console.log("Fetched HTML content:", data);
-                
-                // Replace the inner HTML of productsDiv with the fetched HTML content
-                document.querySelector('.productsDiv').innerHTML = data;
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-});
-
-
-// Function to fetch initial data
-getapi(api_url);
+try {
+    const data = await queryDatabase(connection, sql);
+    if (data.length > 0) {
+        res.json({
+            message: 'Success',
+            data: data
+        });
+    } else {
+        res.json({
+            message: 'No data found',
+            data: []
+        });
+    }
+} catch (error) {
+    console.error("Error executing SQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+}

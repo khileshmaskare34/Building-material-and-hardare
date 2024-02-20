@@ -34,7 +34,7 @@ html, body{
   background-color: rgb(57,70,94);
   padding: 2vh 10vw;
 }
-.option-nav>h4{
+.option-nav>a{
   cursor: pointer;
   font-family: gilroy-b;
   color: white;

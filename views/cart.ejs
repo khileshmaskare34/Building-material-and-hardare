@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cart Page</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/cart.css" />
     <link
       rel="stylesheet"
@@ -14,111 +14,109 @@
       crossorigin="anonymous"
     />
     <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
-    rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
     />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   </head>
   <body>
-    <%- include('header.ejs') -%>
-
     <div class="main">
-      <!-- --------------------------Nav Bar---------------------------------------- -->
+     <%- include('header2.ejs') -%>
 
       <!-- ------------------------------- Cart page start------------------------------ -->
       <div class="shopping-cart">
         <!-- Title -->
-        <div class="title">Your Cart</div>
-
-        <!-- item div -->
-        <div class="cart_item">
-          <div class="cart_buttons">
-            <span class="delete-btn"
-              ><img src="/icons/delete.jpeg" alt=""
-            /></span>
-          </div>
-
-          <div class="cart_image">
-            <img class="prodImgCart" src="/images/image1.jpg" alt="" />
-          </div>
-
-          <div class="description">
-            <span>MULTI-VITAMIN: EVERYDAY WELLNESS</span>
-            <span>Bball High</span>
-          </div>
-
-          <div class="cart_quantity">
-            <button class="plus-btn" type="button" name="button">
-              <img src="/icons/add.jpeg" alt="" />
-            </button>
-            <input class="" type="text" name="" value="1" />
-            <button class="minus-btn" type="button" name="button">
-              <img src="/icons/sub.jpeg" alt="" />
-            </button>
-          </div>
-
-          <div class="total-price">Rs 549.00</div>
+        <div class="title">
+          <span>Your Cart</span>
+          <span>
+            <a class="clearCartBtn" href="/clearCart">Clear all</a>
+          </span>
         </div>
-        <div class="cart_item">
-          <div class="cart_buttons">
-            <span class="delete-btn"
-              ><img src="/icons/delete.jpeg" alt=""
-            /></span>
-          </div>
+        <form
+          class="itemCartShowingWindow-form"
+          action="/updateQty"
+          method="POST"
+        >
+          <button type="submit" class="updateQtyBtn">Update quantity</button>
 
-          <div class="cart_image">
-            <img class="prodImgCart" src="/images/image2.jpg" alt="" />
-          </div>
+          <% totalPrice = 0 %> <% if (products && products.length > 0) { %>
+          <div class="itemCartShowingWindow">
+            <!-- item div -->
+            <% products.map((product) => { %>
+            <div class="cart_item">
+              <div class="cart_buttons">
+                <a href="/removeCartItem/<%= product.pid %>,<%= product.vid %>">
+                  <span class="delete-btn"
+                    ><img src="/images/icons/deleteIcon.png" alt=""
+                  /></span>
+                </a>
+              </div>
 
-          <div class="description">
-            <span>MULTI-VITAMIN: EVERYDAY WELLNESS</span>
-            <span>Bball High</span>
-          </div>
+              <div class="cart_image">
+                <img
+                  class="prodImgCart"
+                  src="/images/<%= product.image1 %>"
+                  alt=""
+                />
+              </div>
 
-          <div class="cart_quantity">
-            <button class="plus-btn" type="button" name="button">
-              <img src="/icons/add.jpeg" alt="" />
-            </button>
-            <input class="" type="text" name="" value="1" />
-            <button class="minus-btn" type="button" name="button">
-              <img src="/icons/sub.jpeg" alt="" />
-            </button>
-          </div>
+              <div class="description">
+                <span><%= product.name %></span>
+                <span><%= product.description %></span>
+              </div>
 
-          <div class="total-price">Rs 549.00</div>
+              <div class="cart_quantity">
+                <span>Change Quantity &nbsp;</span>
+                <input
+                  class="quanityCart"
+                  type="text"
+                  name="updatedQuantities[<%= product.pid %>-<%= product.vid %>]"
+                  value="<%= product.quantity %>"
+                />
+              </div>
+
+              <div class="total-price">
+                <span style="color: black"
+                  ><%= product.individualPrice %> x <%= product.quantity
+                  %></span
+                >
+              </div>
+            </div>
+
+            <% totalPrice += (product.individualPrice * product.quantity) %> <%
+            }) %>
+          </div>
+        </form>
+
+        <% } else { %>
+        <div class="itemCartShowingWindow">
+          <!-- item div -->
+          <h2 class="emptyCartHead">Cart is empty.</h2>
         </div>
-        <div class="cart_item">
-          <div class="cart_buttons">
-            <span class="delete-btn"
-              ><img src="/icons/delete.jpeg" alt=""
-            /></span>
-          </div>
+        <% } %>
 
-          <div class="cart_image">
-            <img class="prodImgCart" src="/images/image1.jpg" alt="" />
-          </div>
-
-          <div class="description">
-            <span>MULTI-VITAMIN: EVERYDAY WELLNESS</span>
-            <span>Bball High</span>
-          </div>
-
-          <div class="cart_quantity">
-            <button class="plus-btn" type="button" name="button">
-              <img src="/icons/add.jpeg" alt="" />
-            </button>
-            <input class="" type="text" name="" value="1" />
-            <button class="minus-btn" type="button" name="button">
-              <img src="/icons/sub.jpeg" alt="" />
-            </button>
-          </div>
-
-          <div class="total-price">Rs 549.00</div>
+        <div class="feeDivCard">
+          <ul class="feeDivCard-ul">
+            <li>
+              <h6>Total</h6>
+              <span>Rs <%= totalPrice %></span>
+            </li>
+            <li>
+              <h6>Delivery Charges</h6>
+              <span>Rs 00.00</span>
+            </li>
+            <li>
+              <h6>Net Total</h6>
+              <span>Rs <%= eval( totalPrice + 00 ) %></span>
+            </li>
+          </ul>
+          <a class="checkoutAtag" href="/checkout"
+            ><button class="checkoutBtn">CHECKOUT</button></a
+          >
         </div>
       </div>
 
-      <!--------------------------------------Footer --------------------------------------  -->
-      <%- include('footer.ejs') -%>
+     <%- include('footer.ejs') -%>
+      
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script
@@ -133,6 +131,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="/javascripts/script.js"></script>
+    <!-- <script src="/javascripts/script.js"></script> -->
   </body>
 </html>
+cart.ejs
+Displaying cart.ejs.

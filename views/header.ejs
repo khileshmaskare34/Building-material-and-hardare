@@ -13,36 +13,55 @@
 <body>
     <div class="nav-bar">
         <div class="top-nb">
-            <a href="">About</a>
-            <a href="">Blogs</a>
-            <a href="">Recent news</a>
-            <a href="">Contact</a>
+            <h1>BUILDINGMATERIAL</h1>
         </div>
         <div class="bottom-nb">
-            <h1>BUILDINGMATERIAL</h1>
-            <div class="menu-toggle">
-                <i class="ri-menu-line"></i>
-            </div>
-            <div class="login">
-                <div class="signup">
-                    <div class="search-box">
-                      <input type="text" placeholder="search">
-                      <i class="ri-search-line"></i>
-
-                    </div>
-                    <a href="">signup</a>
+            <div class="desktop-link">
+                <div class="link">
+                    <a href="">About</a>
+                    <a href="">Contact</a> 
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="search">
+                    <i class="ri-search-line"></i>
                 </div>
                 <div class="login">
-                    <i class="ri-briefcase-line"></i>
-                    <a href="">login</a>
+                    <!-- <div class="signup"> -->
+                        <a href="">sign-up</a>
+                    <!-- </div> -->
+                    <!-- <div class="login"> -->
+                        <!-- <i class="ri-briefcase-line"></i> -->
+                        <a href="">sign-in</a>
+                    <!-- </div> -->
                 </div>
             </div>
+                <div class="menu-toggle">
+                    <div class="search-box">
+                        <input type="text" placeholder="search">
+                        <i class="ri-search-line"></i>
+                    </div>
+                    <div class="icons">
+                     <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+                <div class="togle-link">
+                    <a href="">About</a>
+                    <a href="">Contact</a> 
+                    <a href="">signup</a>
+                    <a href="">login</a>
+                </div>
+            
+           
         </div>
     </div>
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-    document.querySelector('.links').classList.toggle('active');
-});
+
+        var menutoggle = document.querySelector('.menu-toggle> .icons>i');
+        var toggle = document.querySelector('.togle-link');
+         var flag = 0;
+         menutoggle.addEventListener('click', function(){
+            0 === flag ? (toggle.style.display = "flex", flag = 1) : (toggle.style.display = "none", flag = 0)
+         })
 
     </script>
 </body>

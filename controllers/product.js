@@ -19,7 +19,7 @@ exports.productId = (req, res)=>{
         return;
       }
   
-      const sql1 = `SELECT * FROM product_size where shop_id=?`
+      const sql1 = `SELECT * FROM provar where shop_id=?`
       connection.query(sql1, [productId], (error, results1)=>{
         if(error){
             console.error('Error  product:', error);
@@ -31,18 +31,18 @@ exports.productId = (req, res)=>{
         const promises = [];
         
         results1.forEach(row => {
-            const size_id = row.size_id;
-            const sql3 = `SELECT * FROM size where size_id=?`;
+            const vid = row.vid;
+            const sql3 = `SELECT * FROM variant where id=?`;
         
             // Create a promise for each query
             const promise = new Promise((resolve, reject) => {
-                connection.query(sql3, [size_id], (error, size) => {
+                connection.query(sql3, [vid], (error, variant) => {
                     if (error) {
                         console.error('Error fetching size:', error);
                         reject(error);
                     } else {
                         // console.log("size----", size[0].name);
-                        sizeNames.push(size[0].name);
+                        sizeNames.push(variant[0].name);
                         resolve();
                     }
                 });
@@ -55,8 +55,9 @@ exports.productId = (req, res)=>{
         Promise.all(promises)
             .then(() => {
                 var sizeN = sizeNames;
-                console.log("name", sizeN); 
+                console.log("new-name", sizeN); 
                 const product = results[0];
+                console.log("product-cart", product)
                 console.log("item-cart", itemCart)
                 res.render('product', {product, sizeN, itemCart})
             })

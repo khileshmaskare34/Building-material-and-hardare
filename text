@@ -16,3 +16,26 @@ exports.allcat = async (req, res) => {
   if (subcategory) {
       sql += ` INNER JOIN sub_category ON shop.subcategory_id = sub_category.subcategory_id WHERE sub_category.subcategory_id IN (${subcategory})`;
   }
+
+
+
+  router.post('/addCart', (req, res) => {
+
+    // const { product_id, quantity } = req.body;
+    const product_id = 2;
+    const quantity = 2;
+  
+    const ip_address = ip.address(); // Get IP address of the user
+  
+    const sql = 'INSERT INTO cart (pid, qty, ipadd) VALUES (?, ?, ?)';
+    const values = [product_id, quantity, ip_address];
+  
+    connection.query(sql, values, (err, result) => {
+        if (err) {
+            res.status(500).json({ error: 'Error adding item to cart' });
+            throw err;
+        }
+        res.redirect('/cart')
+        // res.status(200).json({ message: 'Item added to cart successfully' });
+    });
+  });
