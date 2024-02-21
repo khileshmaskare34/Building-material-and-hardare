@@ -31,6 +31,9 @@ html, body{
     /* width: 60vw; */
   
 }
+.main-box .success{
+    color: green;
+}
 .main-box .child-box{
     display: flex;
     gap: 2vmax;
@@ -60,6 +63,7 @@ html, body{
 }
 .form-group input[type="text"], input[type="email"]{
     border: none;
+    outline: none;
 }
 .main-box>h1{
     text-align: center;

@@ -21,10 +21,28 @@
                     <a href="">About</a>
                     <a href="">Contact</a> 
                 </div>
-                <div class="search-box">
+                <!-- <div class="search-box">
                     <input type="text" placeholder="search">
                     <i class="ri-search-line"></i>
-                </div>
+                </div> -->
+
+
+
+                <div class="search-box">
+                    <form id="searchForm">
+                      <input
+                        type="text"
+                        id="searchInput"
+                        name="q"
+                        onchange="newf()"
+                        placeholder="Search products..."
+                      />
+                    </form>
+                    <ul id="searchResults">
+                    </ul>
+                  </div>
+
+
                 <div class="login">
                     <!-- <div class="signup"> -->
                         <a href="">sign-up</a>
@@ -37,9 +55,18 @@
             </div>
                 <div class="menu-toggle">
                     <div class="search-box">
-                        <input type="text" placeholder="search">
-                        <i class="ri-search-line"></i>
-                    </div>
+                        <form id="searchForm">
+                          <input
+                            type="text"
+                            id="searchInput"
+                            name="q"
+                            onchange="newf()"
+                            placeholder="Search products..."
+                          />
+                        </form>
+                        <ul id="searchResults">
+                        </ul>
+                      </div>
                     <div class="icons">
                      <i class="ri-menu-line"></i>
                     </div>
@@ -62,6 +89,39 @@
          menutoggle.addEventListener('click', function(){
             0 === flag ? (toggle.style.display = "flex", flag = 1) : (toggle.style.display = "none", flag = 0)
          })
+
+    </script>
+    <script>
+
+
+function newf(event) {
+    var news = document.getElementById("searchInput").value;
+    const searchTerm = news.trim();
+    const searchResults = document.getElementById("searchResults");
+
+    fetch(`/search/${searchTerm}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Clear previous results
+        searchResults.innerHTML = "";
+
+        console.log("data", data)
+        // Display search results
+        data.forEach((product) => {
+          const anchorElement = document.createElement("a");
+          anchorElement.href = "/product/"+product.shop_id; // Set the href attribute
+
+          const listItem = document.createElement("li");
+          listItem.textContent = product.name;
+
+          anchorElement.appendChild(listItem); // Append list item to anchor element
+          searchResults.appendChild(anchorElement);
+        });
+      })
+      .catch((error) => console.error("Error:", error));
+}
+
+document.getElementById("searchInput").addEventListener("input", newf);
 
     </script>
 </body>

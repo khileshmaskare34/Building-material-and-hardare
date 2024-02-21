@@ -152,14 +152,68 @@ exports.filter_by_subcategory = (req, res)=>{
     
 // };
 
+// exports.allcat = async (req, res) => {
+//     const { category, subcategory } = req.query;
+//     console.log("Category:", category);
+//     console.log("Subcategory:", subcategory);
+    
+//     let sql = `SELECT DISTINCT shop.* FROM shop`;
+    
+//     // Join with category table if category filter is provided
+//     if (category) {
+//         sql += ` INNER JOIN category ON shop.category_id = category.category_id WHERE category.category_id IN (${category})`;
+//     } else {
+//         sql += ` INNER JOIN category ON shop.category_id = category.category_id`;
+//     }
+    
+//     // Join with subcategory table if subcategory filter is provided
+//     if (subcategory) {
+//         // If category filter was applied, we use AND instead of WHERE
+//         if (category) {
+//             sql += ` AND`;
+//         } else {
+//             sql += ` WHERE`;
+//         }
+//         sql += ` shop.subcategory_id IN (${subcategory})`;
+//     }
+
+
+//     connection.query('SELECT * FROM provar', (err, provar) => {
+//         if (err) {
+//           console.error('Error fetching products:', err);
+//           res.status(500).send('Error fetching products');
+//           return;
+//         }
+//     })
+//     // console.log("Final SQL:", provar);
+//     // console.log("SQL:", sql);
+
+    
+//     try {
+//         const data = await queryDatabase(connection, sql);
+//         if (data.length > 0) {
+//             res.json({
+//                 message: 'Success',
+//                 data: data,
+//             });
+//         } else {
+//             res.json({
+//                 message: 'No data found',
+//                 data: []
+//             });
+//         }
+//     } catch (error) {
+//         console.error("Error executing SQL query:", error);
+//         res.status(500).json({ error: "Internal Server Error" });
+//     }  
+// };
+
 exports.allcat = async (req, res) => {
     const { category, subcategory } = req.query;
     console.log("Category:", category);
     console.log("Subcategory:", subcategory);
     
-    let sql = `SELECT DISTINCT shop.*, provar.*, variant.v_name 
-               FROM shop
-               INNER JOIN provar ON shop.shop_id = provar.shop_id`;
+    let sql = `SELECT DISTINCT shop.* FROM shop`;
     
     // Join with category table if category filter is provided
     if (category) {
@@ -179,23 +233,25 @@ exports.allcat = async (req, res) => {
         sql += ` shop.subcategory_id IN (${subcategory})`;
     }
 
-    sql += ` INNER JOIN variant ON provar.vid = variant.id`;
-    
-    // console.log("Final SQL:", sql);
-    
     try {
+        // Fetch data from the shop table
         const data = await queryDatabase(connection, sql);
-        if (data.length > 0) {
+        console.log("data", data)
+        // Fetch data from the provar table
+        connection.query('SELECT * FROM provar', (err, provar) => {
+            if (err) {
+                console.error('Error fetching products:', err);
+                res.status(500).send('Error fetching products');
+                return;
+            }
+
+            // Send the data and provar to the frontend
             res.json({
                 message: 'Success',
-                data: data
+                data: data,
+                provar: provar
             });
-        } else {
-            res.json({
-                message: 'No data found',
-                data: []
-            });
-        }
+        });
     } catch (error) {
         console.error("Error executing SQL query:", error);
         res.status(500).json({ error: "Internal Server Error" });

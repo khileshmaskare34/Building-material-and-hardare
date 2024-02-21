@@ -13,9 +13,12 @@
 
 </head>
 <body>
- <div class="get-started-page">
     <%- include('header2.ejs') -%>
+ <div class="get-started-page">
+    <form action="/get-started" id="formin" method="post">
+    </form>
     <div class="get-started">
+         <!-- Your HTML content goes here -->
         <div class="main-box">
             <h1>GET- STARTED</h1>
             <div class="child-box">
@@ -23,36 +26,31 @@
 
                     <div class="form-group">
                      <label for=""></label>
-                     <input class="input" type="text" name="name" placeholder="Name">
+                     <input form="formin" class="input" type="text" name="name" placeholder="Name">
                     </div>
      
                     <div class="form-group">
                      <label for=""></label>
-                     <input  class="input" type="email" name="email" placeholder="Email">
+                     <input form="formin"  class="input" type="email" name="email" placeholder="Email">
                     </div>
      
                     <div class="form-group">
                      <label for=""></label>
-                     <input  class="input" type="text" name="phone" placeholder="Phone Number">
+                     <input form="formin" class="input" type="text" name="phone" placeholder="Phone Number">
                     </div>
      
                     <div class="form-group">
                      <label for=""></label>
-                     <input  class="input" type="text" name="product" placeholder="Product Name">
+                     <input form="formin"  class="input" type="text" name="product" placeholder="Product Name">
                     </div>
      
                     <div class="form-group">
                      <label for=""></label>
-                     <input  class="input" type="text" name="name" placeholder="name">
-                    </div>
-     
-                    <div class="form-group">
-                     <label for=""></label>
-                     <textarea  class="textarea" name="" placeholder="message" ></textarea>
+                     <textarea form="formin" class="textarea" name="message" placeholder="message" ></textarea>
                     </div>
      
                     <a href="">
-                     <button class="button">Submit Details</button>
+                     <button form="formin" class="button">Submit Details</button>
                     </a>
                  </div>
                  <div class="image">
@@ -64,5 +62,6 @@
     </div>
  </div>
    <%- include('footer.ejs') -%>
+
 </body>
 </html>

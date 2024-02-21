@@ -140,3 +140,27 @@ scroll.addEventListener("mousemove", (e) => {
 
 }
 scroll();
+
+
+
+function inc(){
+  console.log("Increase");
+  const q1=parseInt(document.getElementById("qty").value);
+
+  const q2=q1+1;
+  console.log(q2);
+  document.getElementById("qty").value=q2;
+}
+
+function dec(){
+  console.log("Decrease");
+  const q1=parseInt(document.getElementById("qty").value);
+
+  const q2=q1-1;
+  console.log(q2);
+  if(q2<=0){
+    document.getElementById("qty").value=1;
+  }
+  else{
+  document.getElementById("qty").value=q2;}
+}

@@ -85,6 +85,59 @@ document.addEventListener('click', function(e){
     }
 });
 
+// function filterData() {
+//     const category = getFilter('cat');
+//     const subcategory = getFilter('subcat');
+
+//     $.ajax({
+//         url: './allcat',
+//         method: "GET",
+//         data: {
+//             category,
+//             subcategory
+//         },
+//         success: function (result) {
+//             let html = ``;
+//             console.log("ooline", result);
+//             if (result.message === 'Success') { // Use '===' for comparison
+//                 const laptopdata = result.data;
+//                 laptopdata.forEach((item) => {
+//                     html += `
+                  
+//           <a href="/product/${item.shop_id}">
+
+//                         <div class="product">
+//                             <div class="imgDiv">
+//                                 <img src="/images/${item.img_1}" alt="" />
+//                             </div>
+//                             <div class="prodContent">
+//                                 <h6 class="prodName">${item.name}</h6>
+//                                 <span class="priceSpan">
+//                                     <p class="retailPrice">INR-${item.price}</p>
+//                                     <p class="mrp">${item.mrp} INR</p>
+//                                 </span>
+//                                 <button class="addBtn">Add to cart</button>
+//                             </div>
+//                         </div>
+//         </a>
+//         `;
+//                 });
+//             } else {
+//                 html += `
+//                     <div class="product">
+//                         <div class="prodContent">
+//                             <h1>not found </h1>
+//                         </div>
+//                     </div>`;
+//             }
+//             boxfilterdata.innerHTML = html;
+//         }
+//     });
+// }
+
+// Define a Set to store already displayed shop_id values
+const displayedShopIds = new Set();
+
 function filterData() {
     const category = getFilter('cat');
     const subcategory = getFilter('subcat');
@@ -99,40 +152,57 @@ function filterData() {
         success: function (result) {
             let html = ``;
             console.log("ooline", result);
-            if (result.message === 'Success') { // Use '===' for comparison
+            if (result.message === 'Success') {
                 const laptopdata = result.data;
+                const provar = result.provar;
                 laptopdata.forEach((item) => {
-                    html += `
-          <a href="/product/${item.shop_id}">
+                    // Check if the shop_id has already been displayed
+                    // if (!displayedShopIds.has(item.shop_id)) {
+                        html += `
+                        <a href="/product/${item.shop_id}">
+                            <div class="product">
+                                <div class="imgDiv">
+                                    <img src="/images/${item.img_1}" alt="" />
+                                </div>
+                                <div class="prodContent">
+                                    <h6 class="prodName">${item.name}</h6>
+                                    <h6 class="prodDesc">${item.description}</h6>
+                                    
+                                    <span class="priceSpan">`
 
-                        <div class="product">
-                            <div class="imgDiv">
-                                <img src="/images/${item.img_1}" alt="" />
+                                provar.forEach((pro)=>{
+                                    if(item.shop_id==pro.shop_id){  
+                                        html += `
+                                        <p class="retailPrice">INR-${pro.price}</p>
+                                        <p class="mrp">${pro.mrp} INR</p>`
+                                    }
+                                    console.log("props", pro)
+                                  
+                                })
+                                html +=`
+                                        
+                                       
+                                    </span>
+                                    <button class="addBtn">Add to cart</button>
+                                </div>
                             </div>
-                            <div class="prodContent">
-                                <h6 class="prodName">${item.name}</h6>
-                                <span class="priceSpan">
-                                    <p class="retailPrice">INR-${item.price}</p>
-                                    <p class="mrp">${item.mrp} INR</p>
-                                </span>
-                                <button class="addBtn">Add to cart</button>
-                            </div>
-                        </div>
-        </a>
-        `;
+                        </a>
+                        `;
+                        // Add the shop_id to the displayed set
+                        // displayedShopIds.add(item.shop_id);
+                    // }
                 });
             } else {
                 html += `
-                    <div class="product">
-                        <div class="prodContent">
-                            <h1>not found </h1>
-                        </div>
-                    </div>`;
+                <div class="product">
+                    <div class="prodContent">
+                        <h1>not found </h1>
+                    </div>
+                </div>`;
             }
             boxfilterdata.innerHTML = html;
         }
     });
 }
-
 
 

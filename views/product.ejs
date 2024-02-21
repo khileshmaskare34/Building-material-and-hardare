@@ -54,13 +54,14 @@
             
         </div>
         <!-- right-box -->
-    <form action="/addCart" method="post">
-
+        
+        <form action="/addCart" id="formId" method="post">
+         </form>
         <div class="p-right-box">
             <!-- title-box -->
             <div class="title-box">
 
-                <input type="text" value="<%= product.shop_id %>"  name="shop_id" >
+                <input type="hidden" form="formId" value="<%= product.shop_id %>"  name="shop_id"  >
                 <!-- <button type="">submit</button> -->
 
                 <h2><%= product.name %></h2>
@@ -80,8 +81,10 @@
             <!-- price-box -->
             <div class="price-box">
                 <div class="mrp-price">
-                    <h3>Rs <%= product.price %></h3>
-                    <h4>MRP <span class="mrp">Rs <%= product.mrp %></span></h4>
+                  
+
+                    <h3>Rs <%= results1[0].price %></h3>
+                    <h4>MRP <span class="mrp">Rs <%= results1[0].mrp %></span></h4>
                     <h3 class="off" >(Rs. 499 OFF)</h3>
                 </div>
 
@@ -96,29 +99,31 @@
                 <div class="size-box">
                     <% for(var i = 0; i< sizeN.length; i++){ %>
                     <label class="btn btn-light  size-btn">
-                        <input type="radio" class="size-radio" id="size_s" name="size" value="<%= sizeN[i] %>" hidden>
-                        
+                        <input onclick="" type="radio" form="formId" class="size-radio" id="size_s" name="size" value="<%= sizeN[i] %>" <%= i === 0 ? 'checked' : '' %> hidden>
                         <div class="size-circle "><%= sizeN[i] %></div>
                     </label>
                     <%}%>
                 </div>
-
-                <div>
-                    <input type="number" value="1" name="quantity"> <!-- Quantity input field -->
-
+<!-- quantity -->
+            
+                <div class="qty">
+                        <button onclick="dec()" class="qtyminus" aria-hidden="true">&minus;</button>
+                        <input type="number" form="formId" name="quantity" id="qty" min="1" max="" step="1" value="1">
+                        <button class="qtyplus123" aria-hidden="true" onclick="inc()">&plus;</button >
                 </div>
 
                 <!-- payment-box -->
                 <div class="payment-box">
 
-                   
+                   <div class="pyt-btn">
                     <i class="ri-shopping-bag-line"></i>
-                    <button type="submit">Add Cart</button>
-                    
+                    <button form="formId"  type="submit">Add Cart</button>
+                   </div>
 
-                    <a class="pyt-btn" href="">
-                        <h4>Enquiry</h4>
-                    </a>
+                   <div class="pyt-btn">
+                    <button>Enquiry</button>
+                   </div>
+                    
                     
                 </div>
             </div>
@@ -223,7 +228,6 @@
             <h4><span class="product-text">Product Code:</span> 12345268</h4>
             </div>
         </div>
-    </form>
   
     </div>
 
@@ -231,7 +235,6 @@
     <div class="item-box">
         <% for(var i = 0; i< itemCart.length; i++){ %>
         <div class="item">
-            <div class="scroll">
             <div class="img">
                 <img src="/images/<%= itemCart[i].img_1 %>" alt="">
             </div>
@@ -239,17 +242,47 @@
                 <h3><%= itemCart[i].name %></h3>
                 <p><%= itemCart[i].description %> </p>
                 <div class="mrp-price">
-                <h3>Rs <%= itemCart[i].price %></h3>
-                <h4>MRP <span class="mrp">Rs- <%= itemCart[i].mrp %></span></h4>
+                    <!-- <%# for(var j = 0; j < itemCart[i].price.length; j++) { %> -->
+                        <h3>Rs <%= itemCart[0].price[0].price %></h3>
+                        <h4>MRP <span class="mrp">Rs- <%= itemCart[0].price[0].mrp %></span></h4>
+                   <!-- <%# } %> -->
+
                 <h3 class="off" >(Rs. 499 OFF)</h3>
             </div>
             </div>
-        </div>
         </div>
         <%}%>
     </div>
     <%- include('footer.ejs') -%>
 
     <script src="/javascripts/product.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Handle variant selection change event
+        $('.size-radio').change(function(){
+            // Get the selected variant
+            var selectedVariant = $(this).val();
+            
+            // Make an AJAX request to fetch the price for the selected variant
+            $.ajax({
+                url: '/getPriceForVariant', // Update the URL to your endpoint that returns the price for the selected variant
+                type: 'POST',
+                data: { variant: selectedVariant },
+                success: function(response){
+                    // Update the price and MRP elements with the fetched price
+                    $('#price').text('Rs ' + response.price);
+                    $('#mrp').text('Rs ' + response.mrp);
+                },
+                error: function(xhr, status, error){
+                    console.error('Error fetching price:', error);
+                    // Handle the error
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

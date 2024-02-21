@@ -163,7 +163,8 @@ html, body{
     padding: 1vmax;
     width: 45%;
     /* height: 100vh; */
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
+    
 }
 /* ____________________title-box_____________ */
 .p-right-box .title-box{
@@ -289,15 +290,21 @@ html, body{
         text-decoration: none;
         cursor: pointer;
         display: flex;
-        gap: 10px;
+        gap: 5px;
         border: none;
-        padding: 1vmax 4.7vmax;
+        padding: 1vmax 3.7vmax;
         color: white;
         border-radius: 10px;
         background-color: rgb(255,62,108);
         box-shadow: 
         6px 6px 12px -2px rgba(231, 17, 160, 0.5),
         -6px -6px 12px -2px rgba(255, 255, 255, 0.5);
+    }
+    .pyt-btn>button{
+        width: 70px;
+       /* background-color: green; */
+        color: white;
+        /* background-color: green; */
     }
     .pyt-btn>i{
         color: white;
@@ -469,6 +476,10 @@ html, body{
         font-weight: 100;
     }
 
+    /* quantity css here  */
+
+    
+
 
 /* item-box css start here  */
 
@@ -483,16 +494,16 @@ html, body{
         /* height: 10vh; */
         /* width: 200vw; */
         font-family: gilroy;
-        /* flex-wrap: wrap; */
+        flex-wrap: wrap;
         /* overflow-y: auto; */
         /* overflow-x: hidden; */
-        overflow: auto;
-         white-space: nowrap;
+        /* overflow: auto; */
+         /* white-space: nowrap; */
     }
     .item-box .item{
         /* padding-bottom: 5px; */
         width: 250px;
-        /* height: 25vmax; */
+        height: 350px;
        /* background-color: green; */
         box-shadow: 
         6px 6px 12px -2px rgba(57, 70, 94, 0.5),
@@ -500,7 +511,7 @@ html, body{
     }
     .item>.img{
         width: 100%;
-        height: 250px;
+        height: 70%;
         background-color: pink;
     }
     .img>img{
@@ -555,7 +566,6 @@ html, body{
 
     .p-right-box{
         width: 100%;
-        /* background-color: lightpink; */
     }
 
     .text>h5{
@@ -564,4 +574,85 @@ html, body{
     .product-details>h5{
         line-height: 2.2vmax;
     }
+
+
+    .item-box{
+     
+        gap: .5vmax;
+        padding: .2vmax;
+        padding-left: 0vw;
+       
+    }
+    .item-box .item{
+        width: 180px;
+        height: 250px;
+    }
+  
+    .img-text{
+        gap: .3vmax;
+    }
+    .img-text>h3{
+        font-size: 10px;
+    }
+    .img-text>p{
+        font-size: 10px;
+    }
+    .img-text>p{
+        font-family: gilroy;
+    }
+    .img-text>h4>span{
+        font-size: 10px;
+    }
+    .img-text .mrp-price{
+        font-size: 7px;
+    }
+}
+
+
+button {
+	padding: 0;
+	margin: 0;
+	border-style: none;
+	touch-action: manipulation;
+	display: inline-block;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.qty {
+    margin-top: 2vmax;
+	display: flex;
+	/* flex-wrap: wrap; */
+	/* justify-content: center; */
+	text-align: center;
+    /* background-color: red; */
+	
+	label {
+		flex: 1 0 100%;		
+	}
+	input {
+		width: 5rem; height: 3rem;	
+		font-size: 1.3rem;
+		text-align: center;
+		/* border: 1px solid #575757; */
+        outline: none;
+	}
+    /* input[type="number"]{
+        outline: none;
+        border: none;
+    } */
+	button {
+		width: 3rem; height: 3rem;
+		color: #fff;
+		font-size: 2rem;
+		background: #575757;
+        border-radius: 10px;
+	}
+	button.qtyminus {
+		margin-right: 0.3rem;
+	}
+	button.qtyplus {
+		margin-left: 0.3rem;
+	}
 }
