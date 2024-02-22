@@ -17,11 +17,17 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
   </head>
   <body>
+    <%- include('header2.ejs') -%>
     <div class="main">
-     <%- include('header2.ejs') -%>
 
+      <div class="page-link">
+        <a href="/"> Home> </a>
+        <a href="/shop"> shop> </a>
+      </div>
       <!-- ------------------------------- Cart page start------------------------------ -->
       <div class="shopping-cart">
         <!-- Title -->
@@ -31,6 +37,7 @@
             <a class="clearCartBtn" href="/clearCart">Clear all</a>
           </span>
         </div>
+      
         <form
           class="itemCartShowingWindow-form"
           action="/updateQty"
@@ -51,6 +58,7 @@
                 </a>
               </div>
 
+              <div class="img-info">
               <div class="cart_image">
                 <img
                   class="prodImgCart"
@@ -63,7 +71,7 @@
                 <span><%= product.name %></span>
                 <span><%= product.description %></span>
               </div>
-
+            </div>
               <div class="cart_quantity">
                 <span>Change Quantity &nbsp;</span>
                 <input
@@ -93,7 +101,7 @@
           <h2 class="emptyCartHead">Cart is empty.</h2>
         </div>
         <% } %>
-
+      
         <div class="feeDivCard">
           <ul class="feeDivCard-ul">
             <li>
@@ -134,5 +142,3 @@
     <!-- <script src="/javascripts/script.js"></script> -->
   </body>
 </html>
-cart.ejs
-Displaying cart.ejs.

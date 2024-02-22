@@ -37,6 +37,7 @@
     /* background-color: rgb(18, 135, 10); */
   }
   .desktop-link{
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -98,7 +99,7 @@
   /* ______________nav-bar css code end here__________________ */
 
  /* Your existing CSS */
-.menu-toggle{
+.desktop-link .icons{
   display: none;
 }
 
@@ -123,12 +124,27 @@
       padding: .1vh 0vw;
   }
   .desktop-link{
-    display: none;
+    /* background-color: red; */
+    justify-content: center;
   }
+ .desktop-link> .link{
+  display: none;
+ }
+ .login{
+  display: none;
+ }
+ .search-box{
+  display: initial;
+ }
+ .desktop-link .icons{
+  display: initial;
+ }
   .togle-link{
-    margin-left: 60%;
-    /* position: absolute; */
-    right: 10%;
+    /* margin-left: 60%; */
+    position: absolute;
+    right: 20%;
+    top: 10%;
+    z-index: 999;
     width: 100px;
     display: none;
     gap: 10px;
@@ -146,18 +162,15 @@
       cursor: pointer;
   }
 
-  .menu-toggle>i{
-    margin-left: 50vw;
+  .icons>i{
     font-size: 3vmax;
+
   }
 
   .search-box input{
     width: 60vw;
   }
-  .search-box>i{
-    margin-left: 3px;
-    font-size: 2.5vmax;
-  }
+
 }
 
 /* Media query for phones */

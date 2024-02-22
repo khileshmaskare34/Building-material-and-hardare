@@ -21,13 +21,6 @@
                     <a href="">About</a>
                     <a href="">Contact</a> 
                 </div>
-                <!-- <div class="search-box">
-                    <input type="text" placeholder="search">
-                    <i class="ri-search-line"></i>
-                </div> -->
-
-
-
                 <div class="search-box">
                     <form id="searchForm">
                       <input
@@ -40,9 +33,7 @@
                     </form>
                     <ul id="searchResults">
                     </ul>
-                  </div>
-
-
+                </div>
                 <div class="login">
                     <!-- <div class="signup"> -->
                         <a href="">sign-up</a>
@@ -52,38 +43,25 @@
                         <a href="">sign-in</a>
                     <!-- </div> -->
                 </div>
+                <div class="icons">
+                  <i class="ri-menu-line"></i>
+                 </div>
+                 <div class="togle-link">
+                  <a href="">About</a>
+                  <a href="">Contact</a> 
+                  <a href="">signup</a>
+                  <a href="">login</a>
+              </div>
             </div>
-                <div class="menu-toggle">
-                    <div class="search-box">
-                        <form id="searchForm">
-                          <input
-                            type="text"
-                            id="searchInput"
-                            name="q"
-                            onchange="newf()"
-                            placeholder="Search products..."
-                          />
-                        </form>
-                        <ul id="searchResults">
-                        </ul>
-                      </div>
-                    <div class="icons">
-                     <i class="ri-menu-line"></i>
-                    </div>
-                </div>
-                <div class="togle-link">
-                    <a href="">About</a>
-                    <a href="">Contact</a> 
-                    <a href="">signup</a>
-                    <a href="">login</a>
-                </div>
+                
+              
             
            
         </div>
     </div>
     <script>
 
-        var menutoggle = document.querySelector('.menu-toggle> .icons>i');
+        var menutoggle = document.querySelector('.desktop-link> .icons>i');
         var toggle = document.querySelector('.togle-link');
          var flag = 0;
          menutoggle.addEventListener('click', function(){
@@ -94,31 +72,65 @@
     <script>
 
 
+// function newf(event) {
+//     var news = document.getElementById("searchInput").value;
+//     const searchTerm = news.trim();
+//     const searchResults = document.getElementById("searchResults");
+
+//     fetch(`/search/${searchTerm}`)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // Clear previous results
+//         searchResults.innerHTML = "";
+
+//         console.log("data", data)
+//         // Display search results
+//         data.forEach((product) => {
+//           const anchorElement = document.createElement("a");
+//           anchorElement.href = "/product/"+product.shop_id; // Set the href attribute
+
+//           const listItem = document.createElement("li");
+//           listItem.textContent = product.name;
+
+//           anchorElement.appendChild(listItem); // Append list item to anchor element
+//           searchResults.appendChild(anchorElement);
+//         });
+//       })
+//       .catch((error) => console.error("Error:", error));
+// }
+
+// document.getElementById("searchInput").addEventListener("input", newf);
+
 function newf(event) {
     var news = document.getElementById("searchInput").value;
     const searchTerm = news.trim();
     const searchResults = document.getElementById("searchResults");
 
-    fetch(`/search/${searchTerm}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Clear previous results
-        searchResults.innerHTML = "";
+    // Clear previous results
+    searchResults.innerHTML = "";
 
-        console.log("data", data)
-        // Display search results
-        data.forEach((product) => {
-          const anchorElement = document.createElement("a");
-          anchorElement.href = "/product/"+product.shop_id; // Set the href attribute
+    if (searchTerm === "") {
+        const defaultAnchorElement = document.createElement("a");
+        defaultAnchorElement.textContent = "";
+        searchResults.appendChild(defaultAnchorElement);
+    } else {
+        fetch(`/search/${searchTerm}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Display search results
+            data.forEach((product) => {
+              const anchorElement = document.createElement("a");
+              anchorElement.href = "/product/"+product.shop_id; // Set the href attribute
 
-          const listItem = document.createElement("li");
-          listItem.textContent = product.name;
+              const listItem = document.createElement("li");
+              listItem.textContent = product.name;
 
-          anchorElement.appendChild(listItem); // Append list item to anchor element
-          searchResults.appendChild(anchorElement);
-        });
-      })
-      .catch((error) => console.error("Error:", error));
+              anchorElement.appendChild(listItem); // Append list item to anchor element
+              searchResults.appendChild(anchorElement);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+    }
 }
 
 document.getElementById("searchInput").addEventListener("input", newf);

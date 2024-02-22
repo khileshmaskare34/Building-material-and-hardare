@@ -23,6 +23,10 @@
     
     <%- include('header2.ejs') -%>
 
+    <div class="page-link">
+        <a href="/"> Home> </a>
+        <a href="/shop"> shop> </a>
+    </div>
     <div class="product">
         <!-- left-box -->
         <div class="p-left-box">
@@ -60,7 +64,7 @@
         <div class="p-right-box">
             <!-- title-box -->
             <div class="title-box">
-
+                
                 <input type="hidden" form="formId" value="<%= product.shop_id %>"  name="shop_id"  >
                 <!-- <button type="">submit</button> -->
 

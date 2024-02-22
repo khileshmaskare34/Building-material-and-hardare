@@ -258,35 +258,3 @@ exports.allcat = async (req, res) => {
     }  
 };
 
-exports.shop_filter_by_category = async (req, res) => {
-    const category_id = req.params.categoryId;
-    // console.log("Category ID", category_id);
-
-    if (category_id) {
-        const sql = 'SELECT * FROM shop WHERE category_id = ?';
-        // console.log("SQL Query", sql);
-        
-        try {
-            const data = await queryDatabase(connection, sql, [category_id]);
-            // console.log("Query Result:", data);
-            
-            if (data.length > 0) {
-                res.json({
-                    message: 'Data retrieved successfully',
-                    data: data
-                });
-            } else {
-                res.json({
-                    message: 'No data found for the given category ID',
-                    data: []
-                });
-            }
-        } catch (error) {
-            // console.error("Error executing SQL query:", error);
-            res.status(500).json({ error: "Internal Server Error" });
-        }
-    } else {
-        console.log("Category ID is missing");
-        res.status(400).json({ error: "Category ID is missing" });
-    }
-};

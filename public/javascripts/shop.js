@@ -172,18 +172,20 @@ function filterData() {
 
                                 provar.forEach((pro)=>{
                                     if(item.shop_id==pro.shop_id){  
+                                        console.log("Match found for item:", item.shop_id);
+
                                         html += `
                                         <p class="retailPrice">INR-${pro.price}</p>
-                                        <p class="mrp">${pro.mrp} INR</p>`
+                                        <p class="mrp">${pro.mrp} INR</p>`;
+                                        return;
                                     }
-                                    console.log("props", pro)
                                   
                                 })
                                 html +=`
                                         
                                        
                                     </span>
-                                    <button class="addBtn">Add to cart</button>
+                                    <button class="addBtn">View Product</button>
                                 </div>
                             </div>
                         </a>
