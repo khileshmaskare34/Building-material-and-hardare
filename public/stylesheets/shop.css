@@ -163,7 +163,9 @@
     color: black;
   }
   .addBtn {
-    background-color: #9ee281;
+    /* background-color: #9ee281; */
+    background-color: rgb(255,62,108);
+    
     color: white;
     border: 0;
     padding: 0.2vmax 3vmax;
