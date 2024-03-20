@@ -57,6 +57,7 @@ html, body{
     height: 50vh;
 }
 .form-group{
+    /* background-color: red; */
     margin-top: 2vmax;
     width: 30vw;
     border-bottom: 1px solid rgba(145, 134, 134, 0.41);
@@ -64,6 +65,8 @@ html, body{
 .form-group input[type="text"], input[type="email"]{
     border: none;
     outline: none;
+    width: 100%;
+    padding: 10px;
 }
 .main-box>h1{
     text-align: center;
@@ -94,7 +97,7 @@ html, body{
     
 }
 
-@media  screen and (max-width: 600px) {
+@media  screen and (max-width: 720px) {
     .main-box{
         width: 95%;
     }

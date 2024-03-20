@@ -35,10 +35,9 @@ exports.shop1 = (req, res)=>{
       });
 }
 exports.shop = (req, res)=>{
+    try {
      const ide = req.query;
-     console.log("print", ide)
-    
-    
+    //  console.log("print", ide)
     connection.query('SELECT * FROM shop', (err, shop) => {
         if (err) {
           console.error('Error querying database:', err);
@@ -63,33 +62,40 @@ exports.shop = (req, res)=>{
 
         res.render('shop', {shop, category, subcategory, ide});
             })
-
         })
-    
       });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
 }
 
 
 
 exports.filter_by_category = async (req, res)=>{
-  
+  try {
     connection.query(`select * from category`, (err, data)=>{
-    if(data.length>0){
-        res.json({
-            message: 'success',
-            data: data
+        if(data.length>0){
+            res.json({
+                message: 'success',
+                data: data
+            })
+        }else{
+            res.json({
+                message: 'not get',
+                data:[]
+            })
+        }
         })
-    }else{
-        res.json({
-            message: 'not get',
-            data:[]
-        })
-    }
-})
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
 
 
 exports.filter_by_subcategory = (req, res)=>{
+  try {
     connection.query(`select * from sub_category`, (err, data1)=>{
         if(data1.length>0){
             res.json({
@@ -103,6 +109,10 @@ exports.filter_by_subcategory = (req, res)=>{
             })
         }
     })
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
 
 
@@ -245,13 +255,22 @@ exports.allcat = async (req, res) => {
                 return;
             }
 
+            connection.query('SELECT * FROM variant', (err, variant) => {
+                if (err) {
+                    console.error('Error fetching products:', err);
+                    res.status(500).send('Error fetching products');
+                    return;
+                }
+
             // Send the data and provar to the frontend
             res.json({
                 message: 'Success',
                 data: data,
-                provar: provar
+                provar: provar,
+                variant: variant
             });
         });
+    })
     } catch (error) {
         console.error("Error executing SQL query:", error);
         res.status(500).json({ error: "Internal Server Error" });

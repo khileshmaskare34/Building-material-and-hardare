@@ -1,0 +1,128 @@
+@font-face {
+    font-family: assistant;
+    src: url("/fonts/Assistant-Regular.ttf");
+}
+@font-face {
+    font-family: assistant-b;
+    src: url("/fonts/Assistant-Bold.ttf");
+}
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+.about-page{
+    width: 100%;
+    /* height: 100%; */
+    /* background-color: green; */
+}
+
+.about-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* height: 30vmax; */
+    /* background-color: red; */
+}
+.about-top .img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vmax;
+    /* background-color: lightpink; */
+}.img>img{
+    width: 80%;
+    height: 90%;
+}
+.about-top .text{
+    padding: 2vmax;
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(94, 79, 81); */
+}.text .heading{
+    text-align: center;
+    font-family: assistant-b;
+}
+.sub-heading{
+    font-family: assistant;
+    text-align: center;
+}
+
+.about-bottom{
+    display: flex;
+    width: 100%;
+    /* height: 30vmax; */
+    /* background-color: rgb(255, 255, 0); */
+}
+.main-text{
+    padding: 2vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+    /* background-color: green; */
+}
+.main-text .trust-line{
+    width: 60%;
+    font-family: assistant-b;
+}
+.para{
+    margin-top: 2vmax;
+    width: 80%;
+}
+.sub-img{
+    padding: 2vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+    /* background-color: blue; */
+}
+.sub-img>img{
+    width: 100%;
+    height: 40vh;
+    margin-top: 2vmax;
+}
+
+.main-text>a button{
+    margin-top: 2vmax;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    font-family: assistant-b;
+    font-size: 1.3vmax;
+    background-color: white;
+    box-shadow: 13px 13px 28px #cac9c9, -13px -13px 28px #ffffff;
+    cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+    .about-bottom{
+        flex-direction: column;
+    }
+    .main-text{
+        width: 100%;
+    }
+    .sub-img{
+        width: 100%;
+    }
+    .main-text .trust-line{
+        width: 80%;
+        font-size: 3vmax;
+        font-family: assistant-b;
+    }
+    .sub-heading{
+        font-size: 2vmax;
+        margin-top: 2vmax;
+    }
+}

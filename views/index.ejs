@@ -33,7 +33,7 @@
                 </a>
             </div>
         </div>
-    </div> -->
+    </div>  -->
     <%- include('header.ejs') -%>
     <div class="main" id="main">
           
@@ -59,6 +59,7 @@
             </div>
         </div>
 
+    <div class="slider-container">
         <div class="slider">
             <div class="slider-slide">
                 <a class="img-box-first" href="/shop?category=1">
@@ -107,6 +108,8 @@
                     <img src="/images/chimney.webp" alt="">
                     <h1>Door Fitting <br> And Handles</h1>
                 </a>
+
+                
                 <a class="img-box-first" href="/shop?category=2">
                     <img src="/images/chimney.webp" alt="">
                     <h1>Moduler Kitchen <br> Accessories</h1>
@@ -144,7 +147,10 @@
             </div>
             
         </div>
-
+        <button class="slider-btn prev-btn">❮</button>
+        <button class="slider-btn next-btn">❯</button>
+    </div>
+   
         <div class="box">
             <div class="left-box">
                 <img src="/images/modular kitchen.jpg" alt="">
@@ -166,38 +172,28 @@
             </div>
         </div>
 
-        <div class="slider">
+    <div class="slider-container3d">
+        <div class="slider3d">
             <div class="slide-3d">
-                <div class="img-box">
-                    <img src="./images/image2.jpg" alt="">
-                    <h1>Product-01</h1>
-                </div>
-                <div class="img-box">
-                    <img src="./images/image1.jpg" alt="">
-                    <h1>Product-02</h1>
-                </div>
-                <div class="img-box">
-                    <img src="./images/chimney.webp" alt="">
-                    <h1>Product-03</h1>
-                </div>
+                <% for(var i = 0;i< shopitem.length; i++){ %>
+                 <a href="/product/<%= shopitem[i].shop_id %>" class="img-box">
+                    <img src="./images/<%= shopitem[i].img_1 %>" alt="">
+                    <h1><%= shopitem[i].name %></h1>
+                 </a>
+                <%}%>
             </div>
             <div class="slide-3d">
-                <div class="img-box">
-                    <img src="./images/image2.jpg" alt="">
-                    <h1>Product-01</h1>
-                </div>
-                <div class="img-box">
-                    <img src="./images/image1.jpg" alt="">
-                    <h1>Product-02</h1>
-                </div>
-                <div class="img-box">
-                    <img src="./images/chimney.webp" alt="">
-                    <h1>Product-03</h1>
-                </div>
+                <% for(var i = 0;i< shopitem.length; i++){ %>
+                    <a href="/product/<%= shopitem[i].shop_id %>" class="img-box">
+                       <img src="./images/<%= shopitem[i].img_1 %>" alt="">
+                       <h1><%= shopitem[i].name %></h1>
+                    </a>
+                   <%}%>
             </div>
-            
         </div>
-
+        <button class="slider-btn prev-btn3d">❮</button>
+        <button class="slider-btn next-btn3d">❯</button>
+    </div>
         
       <%- include('footer.ejs') -%>
 
@@ -210,4 +206,3 @@
 </html>
 
 
-<!--  -->

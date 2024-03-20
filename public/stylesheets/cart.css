@@ -19,7 +19,7 @@ color: black;
 }
 .shopping-cart {
   width: 65vw;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 80px auto;
   background: #ffffff;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
@@ -89,23 +89,24 @@ color: black;
 }
 .cart_item {
   padding: 20px 30px;
-  height: 33.33%;
+  height: 8vmax;
   display: flex;
   /* justify-content: space-around; */
-  /* background-color: red; */
+  /* background-color: rgb(0, 255, 8); */
   /* border: 2px solid black; */
   margin-top:30px;
   box-shadow: 3px 5px 10px #cac9c9, -13px -13px 28px #ffffff;
 
 }
 .itemCartShowingWindow {
+  padding: 5vmax 0vmax;
   width: 100%;
   height: 100%;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  /* background-color: red; */
+  /* background-color: rgb(43, 204, 204); */
   overflow-y: scroll;
 }
 .itemCartShowingWindow-form {
@@ -117,7 +118,6 @@ color: black;
   height: 56vh;
   /* display: flex; */
   flex-direction: column;
-  /* background-color: red; */
   /* overflow-y: scroll; */
 }
 
@@ -176,7 +176,7 @@ color: black;
   margin-top: 1.1vmax;
 }
 .total-price {
-  width: 83px;
+  width: 109px;
   padding-top: 27px;
   text-align: center;
   font-size: 18px;
@@ -193,7 +193,8 @@ color: black;
 .description {
   padding-top: 10px;
   margin-right: 60px;
-  width: 115px;
+  width: 105px;
+  /* background-color: rgb(170, 126, 126); */
 }
 
 .description span {
@@ -222,6 +223,9 @@ color: black;
   font-size: 16px;
   color: #43484d;
   font-weight: 300;
+}
+.total-price{
+  background-color: white;
 }
 
 button[class*="btn"] {
@@ -255,20 +259,20 @@ input:focus {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: white;
-  /* background-color: red; */
+  /* background-color: white; */
+  /* background-color: rgb(1, 1, 1); */
 }
 
 .feeDivCard-ul {
   width: 100%;
-  height: 70%;
+  /* height: 70%; */
   /* background-color: red; */
   list-style: none;
   padding: 1vmax 10vmax 1.1vmax 10vmax;
 }
 .feeDivCard-ul > li {
   width: 100%;
-  height: 70%;
+  /* height: 70%; */
   /* background-color: blue; */
   display: flex;
   justify-content: space-between;
@@ -362,27 +366,18 @@ input:focus {
     scale: 1.01;
   }
   .cart_item {
-    /* padding: 20px 30px; */
+    padding: 2px 0px;
     height: 33.33%;
     display: flex;
     justify-content: space-evenly;
-    /* background-color: red; */
+    /* background-color: lightblue; */
     /* border: 2px solid black; */
-    margin-top:30px;
+    /* margin-top:30px; */
     /* background-color: red; */
     box-shadow: 3px 5px 10px #cac9c9, -13px -13px 28px #ffffff;
   
   }
-  .itemCartShowingWindow {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
-    flex-direction: column;
-    /* background-color: red; */
-    overflow-y: scroll;
-  }
+  
   .itemCartShowingWindow-form {
     padding: 1vmax;
     width: 100%;
@@ -402,12 +397,7 @@ input:focus {
   .itemCartShowingWindow::-webkit-scrollbar {
     width: 0.5vmax;
   }
-  
-  /* .cart_item {
-    position: relative;
-    padding-top: 30px;
-    margin-right: 90px;
-  } */
+ 
   .delete-btn {
     display: inline-block;
     cursor: pointer;
@@ -447,12 +437,13 @@ input:focus {
     margin-top: 1.1vmax;
   }
   .total-price {
-    width: 83px;
-    padding-top: 27px;
+    width: 120px;
+    /* padding-top: 27px; */
     text-align: center;
     font-size: 18px;
     color: #9ee281;
     font-weight: 400;
+    /* background-color: red; */
   }
   
   .prodImgCart {
@@ -463,29 +454,33 @@ input:focus {
   /* Let’s add some basic style to  product name and description. */
   .description {
     padding-top: 0px;
-    margin-right: 0px;
-    width: 115px;
+    margin-right: 10px;
+    width: 80px;
     /* background-color: red; */
   }
   
   .description span {
-    display: block;
+    /* display: block; */
     font-size: 12px;
     color: #43484d;
     font-weight: 400;
   }
   
   .description span:first-child {
-    margin-bottom: 5px;
+    margin-bottom: 1px;
   }
   .description span:last-child {
     font-weight: 300;
-    margin-top: 8px;
+    margin-top: 0px;
     color: #86939e;
   }
   .cart_quantity {
+    text-align: center;
+    width: 100px;
     padding-top: 20px;
-    margin-right: 60px;
+    margin-right: 0px;
+    /* background-color: yellow; */
+
   }
   .cart_quantity input {
     border: none;
@@ -495,7 +490,10 @@ input:focus {
     color: #43484d;
     font-weight: 300;
   }
-  
+  .total-price{
+    /* background-color: green */
+
+  }
   button[class*="btn"] {
     width: 30px;
     height: 30px;

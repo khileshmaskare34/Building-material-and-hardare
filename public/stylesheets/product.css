@@ -19,7 +19,7 @@ html, body{
 .page-link{
     /* background-color: red; */
     margin-left: 2vmax;
-    font-size: 1.5vmax;
+    font-size: 1vmax;
     font-family: gilroy;
 }
 .page-link>a{
@@ -63,7 +63,7 @@ html, body{
   }
   .row> .image{
     width: 25vw;
-    height: 70vh;
+    height: 35vmax;
     /* background-color: red; */
   } 
   
@@ -511,6 +511,9 @@ html, body{
         /* overflow: auto; */
          /* white-space: nowrap; */
     }
+    .item-box>a{
+        text-decoration: none;
+    }
     .item-box .item{
         /* padding-bottom: 5px; */
         width: 250px;
@@ -648,6 +651,11 @@ button {
 		text-align: center;
 		/* border: 1px solid #575757; */
         outline: none;
+        margin-right: 3px;
+        border: none;
+        box-shadow: 
+        6px 6px 12px -2px rgba(57, 70, 94, 0.5),
+        -6px -6px 12px -2px rgba(255, 255, 255, 0.5);
 	}
     /* input[type="number"]{
         outline: none;

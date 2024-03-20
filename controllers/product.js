@@ -98,12 +98,13 @@ exports.productId = (req, res)=>{
     console.log("productId", productId)
 
     const sql = `SELECT * FROM shop where shop_id=?`
-    connection.query(sql, [productId], (error, results) => {
+    connection.query(sql, [productId], (error, resultsx) => {
       if (error) {
         console.error('Error fetching product:', error);
         res.status(500).send('Error fetching product');
         return;
       }
+      console.log("result", resultsx)
 
     connection.query('SELECT * FROM shop', (err, itemCart) => {
       if (err) {
@@ -149,39 +150,62 @@ exports.productId = (req, res)=>{
         
         results1.forEach(row => {
             const vid = row.vid;
-            const sql3 = `SELECT * FROM variant where id=?`;
+            const sqlVariant = `SELECT * FROM variant WHERE id=?`;
+            const sqlProvar = `SELECT * FROM provar WHERE vid=?`;
         
-            // Create a promise for each query
-            const promise = new Promise((resolve, reject) => {
-                connection.query(sql3, [vid], (error, variant) => {
+            // Create a promise for fetching variant data
+            const promiseVariant = new Promise((resolve, reject) => {
+                connection.query(sqlVariant, [vid], (error, variant) => {
                     if (error) {
-                        console.error('Error fetching size:', error);
+                        console.error('Error fetching variant:', error);
                         reject(error);
                     } else {
-                        // console.log("size----", size[0].name);
-                        sizeNames.push(variant[0].v_name);
-                        resolve();
+                        resolve(variant[0]);
                     }
                 });
             });
         
-            promises.push(promise); // Add the promise to the promises array
+            // Create a promise for fetching price data
+            const promiseProvar = new Promise((resolve, reject) => {
+                connection.query(sqlProvar, [vid], (error, price) => {
+                    if (error) {
+                        console.error('Error fetching price:', error);
+                        reject(error);
+                    } else {
+                        resolve(price[0]);
+                    }
+                });
+            });
+        
+            // Push both promises into the promises array
+            promises.push(promiseVariant, promiseProvar);
         });
         
         // Wait for all promises to resolve
         Promise.all(promises)
-            .then(() => {
-                var sizeN = sizeNames;
-                // console.log("new-name", sizeN); 
-                const product = results[0];
-                console.log("product-cart", results1)
-                console.log("item-cart", itemCart)
-                res.render('product', {product, results1, sizeN, itemCart})
+            .then(results => {
+                // Combine variant names and prices into a single object
+                for (let i = 0; i < results.length; i += 2) {
+                    const variant = results[i];
+                    const price = results[i + 1];
+                    const combinedObject = {
+                        variantName: variant.v_name,
+                        price: price.price
+                    };
+                    sizeNames.push(combinedObject);
+                }
+        
+                // Continue with rendering or further processing
+                const products = resultsx;
+                // console.log("product-cart", sizeNames);
+                console.log("sizeNames", itemCart);
+                res.render('product', { products, results1, sizeNames, itemCart });
             })
             .catch(error => {
-                console.error('Error fetching size:', error);
-                res.status(500).send('Error fetching size');
+                console.error('Error fetching data:', error);
+                res.status(500).send('Error fetching data');
             });
+        
     })
     });
 })
@@ -191,7 +215,7 @@ exports.productId = (req, res)=>{
 exports.getcart = async (req, res)=>{
     const userIp = ip.address(); // Retrieve user's IP address from request object
 
-  try {
+  // try {
     // Fetch cart items for the user's IP address
     const [cartRows] = await pool.execute(
       "SELECT pid, vid, qty FROM cart WHERE ipadd = ?",
@@ -260,14 +284,15 @@ exports.getcart = async (req, res)=>{
       user: "",
       products: products,
     });
-  } catch (error) {
-    console.error("Error fetching product details:", error);
-    res.status(500).json({ message: "Internal server error." });
-  }
+  // } catch (error) {
+  //   console.error("Error fetching product details:", error);
+  //   res.status(500).json({ message: "Internal server error." });
+  // }
 }
 
 exports.postcart = async (req, res)=>{
     const { shop_id, size, quantity } = req.body;
+    // console.log("shop_id",shop_id,"size", size, "qty", quantity)
     const pid = shop_id;
     let vid = size;
     const qty = quantity;
@@ -309,7 +334,7 @@ exports.postcart = async (req, res)=>{
                 // return res.status(400).send('Product already added to cart.');
                return res.send(`
             <script>
-            alert("Information save Successfully we will contact soon");
+            alert("Product already save in cart");
             window.location.href = "/product/${pid}";
             </script>
           `);
@@ -359,4 +384,21 @@ exports.removecartitem = async (req, res)=>{
           "<script>alert(`Error deleting product, please try again.`)</script>"
         );
       }
+}
+
+exports.updateQty = async (req, res)=>{
+  const updatedQuantities = req.body;
+
+  // Using Object.keys()
+  const keys = Object.keys(updatedQuantities);
+  keys.forEach((key) => {
+    const productId = key.split("[")[1].split("-")[0]; // Extract productId from the key
+    const variationId = key.split("-")[1].split("]")[0]; // Extract variationId from the key
+    const quantity = updatedQuantities[key];
+
+    const updateQuery = "UPDATE cart SET qty = ? WHERE pid = ? AND vid = ?";
+    pool.execute(updateQuery, [quantity, productId, variationId]);
+  });
+
+  res.redirect("/cart"); // Redirect back to the cart page
 }

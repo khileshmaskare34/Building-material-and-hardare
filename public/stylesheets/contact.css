@@ -1,0 +1,91 @@
+@font-face {
+    font-family: gilroy;
+    src: url("/fonts/Assistant-Regular.ttf");
+}
+@font-face {
+    font-family: gilroy-b;
+    src: url("/fonts/Assistant-Bold.ttf");
+}
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+.contact-page{
+    padding: 2vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    /* height: 100%; */
+    /* background-color: red; */
+}
+.contact{
+    display: flex;
+    width: 70vmax;
+    /* height: 40vmax; */
+    /* background-color: green; */
+}
+.userContact-form{
+    padding: 2vmax;
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(174, 212, 36); */
+}
+.userContact-form>h1{
+    font-family: gilroy-b;
+}
+
+.companyContact-form{
+    padding: 2vmax;
+    width: 50%;
+    /* height: 100%; */
+    color: white;
+    /* background-color: blue; */
+}
+.companyContact-form>h1{
+    font-family: gilroy-b;
+    color: black;
+}
+.companyContact-form .cont{
+    margin-top: 2vmax;
+    background-color: red;
+    padding: 2vmax;
+    background-color: #39465E;
+
+}
+.cont .cont-info{
+    font-family: gilroy;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 2vmax;
+}
+.cont-info i{
+    font-size: 2vmax;
+}
+
+/* ----Map----------- */
+
+.map{
+    margin-top: 5vmax;
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .contact{
+        flex-direction: column;
+        width: 100vw;
+    }
+    .userContact-form{
+        width: 100%;
+    }
+    .companyContact-form{
+        width: 100%;
+    }
+}

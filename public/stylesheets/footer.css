@@ -7,7 +7,12 @@
     src: url("/fonts/Assistant-Bold.ttf");
 }
 .footer{
-  padding: 4vh 2vw;
+  /* padding: 6vh 2vw; */
+  padding-bottom: 8vh;
+  padding-top: 4vh;
+
+  padding-left: 1vw;
+  padding-right: 1vw;
 
 }
 .container{
@@ -28,6 +33,7 @@ ul{
 .footer-col{
    width: 25%;
    padding: 0 15px;
+   /* background-color: yellow; */
 }
 .footer-col h4{
 	font-size: 18px;

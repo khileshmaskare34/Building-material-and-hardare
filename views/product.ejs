@@ -38,7 +38,7 @@
                     <div class="row">
                     <div class="image">
                         <div class="img-wrapper">
-                        <a href="/images/<%= product.img_1 %>"><img src="/images/<%= product.img_1 %>" class="img-responsive"></a>
+                        <a href="/images/<%= products[0].img_1%>"><img src="/images/<%= products[0].img_1 %>" class="img-responsive"></a>
                         <div class="img-overlay">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="image">
                         <div class="img-wrapper">
-                        <a href="/images/<%= product.img_2 %>"><img src="/images/<%= product.img_2 %>" class="img-responsive"></a>
+                        <a href="/images/<%= products[0].img_2 %>"><img src="/images/<%= products[0].img_2 %>" class="img-responsive"></a>
                         <div class="img-overlay">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </div>
@@ -66,22 +66,11 @@
             <!-- title-box -->
             <div class="title-box">
                 
-                <input type="hidden" form="formId" value="<%= product.shop_id %>"  name="shop_id"  >
-                <!-- <button type="">submit</button> -->
+                <input type="hidden" form="formId" value="<%= products[0].shop_id %>"  name="shop_id"  >
 
-                <h2><%= product.name %></h2>
-                <h3><%= product.description %></h3>
-                <!-- ____________rating box____________ -->
-                <!-- <div class="rating-box">
-                    <div class="rb-left">
-                        <h5>5.6 
-                            <i class="ri-star-s-fill"></i>
-                        </h5>
-                    </div>
-                    <div class="rb-right">
-                    <p>29 Ratings</p>
-                    </div>
-                </div> -->
+               
+                <h2><%= products[0].name %></h2>
+                <h3><%= products[0].description %></h3>
             </div>
             <!-- price-box -->
             <div class="price-box">
@@ -102,10 +91,13 @@
                  </a>
                 </div>
                 <div class="size-box">
-                    <% for(var i = 0; i< sizeN.length; i++){ %>
+                    <% for(var i = 0; i< sizeNames.length; i++){ %>
                     <label class="btn btn-light  size-btn">
-                        <input onclick="" type="radio" form="formId" class="size-radio" id="size_s" name="size" value="<%= sizeN[i] %>" <%= i === 0 ? 'checked' : '' %> hidden>
-                        <div class="size-circle "><%= sizeN[i] %></div>
+                        <input onclick="" type="radio" form="formId" class="size-radio" id="size_s" name="size" value="<%= sizeNames[i].variantName %>" <%= i === 0 ? 'checked' : '' %> hidden>
+                        <div class="size-circle">
+                            <p><%= sizeNames[i].variantName %></p>
+                            <p>Rs- <%= sizeNames[i].price %></p>
+                        </div>
                     </label>
                     <%}%>
                 </div>
@@ -125,9 +117,6 @@
                     <button form="formId"  type="submit">Add Cart</button>
                    </div>
 
-                   <div class="pyt-btn">
-                    <button>Enquiry</button>
-                   </div>
                     
                     
                 </div>
@@ -159,75 +148,7 @@
                 <h5>Machine wash</h5>
             </div>
 
-            <!------____________________ star rating ___________________________ -->
-            <!-- <div class="star-rating">
-                <div class="rating-hadline">
-                <h4>RATINGS</h4>
-                <i class="ri-star-s-fill"></i>
-                <i class="ri-star-half-fill"></i>
-                </div>
-                <div class="buyers-rating">
-                    <div class="buyers-left">
-                    <h1>5.6 
-                    <i class="ri-star-s-fill"></i>
-                    </h1>
-                    <p>29 verified buyers</p>
-                    </div>
-                    <div class="buyers-right">
-                        <div class="rating-line">
-                            <p>5  <i class="ri-star-s-fill"></i></p>
-                            <div class="line"></div>
-                            <p>21</p>
-                        </div>
-                        <div class="rating-line">
-                            <p>4  <i class="ri-star-s-fill"></i></p>
-                            <div class="line2"></div>
-                            <p>21</p>
-                        </div>
-                        <div class="rating-line">
-                            <p>3  <i class="ri-star-s-fill"></i></p>
-                            <div class="line3"></div>
-                            <p>21</p>
-                        </div>
-                        <div class="rating-line">
-                            <p>2  <i class="ri-star-s-fill"></i></p>
-                            <div class="line4"></div>
-                            <p>21</p>
-                        </div>
-                        <div class="rating-line">
-                            <p>1  <i class="ri-star-s-fill"></i></p>
-                            <div class="line5"></div>
-                            <p>21</p>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div> -->
-
-            <!--___________________________________- customer reviews _______________________________-->
-            <!-- <div class="customer-rev">
-            <h4>Customer Reviews (3)</h4>
-            <div class="customer-box">
-                <div class="cr-star">
-                    <div class="star-5">
-                        <h6>5</h6>
-                        <i class="ri-star-s-fill"></i>
-                    </div>
-                    <p>Nice work</p>
-                </div>
-                <div class="cr-date">
-                    <p>Rajesh Prashad </p>
-                    <p>28-3-1990</p>
-
-                    <div class="thumb">
-                        <i class="ri-thumb-up-line"> 0</i>
-                        <i class="ri-thumb-down-line">0</i>
-                    </div>
-                </div>
-            </div>
-            </div> -->
-
+         
             <!-- Product Code -->
             <div class="product-code">
             <h4><span class="product-text">Product Code:</span> 12345268</h4>
@@ -239,6 +160,7 @@
     <!-- _____item-box html code________ -->
     <div class="item-box">
         <% for(var i = 0; i< itemCart.length; i++){ %>
+       <a href="/product/<%= itemCart[i].shop_id %>">     
         <div class="item">
             <div class="img">
                 <img src="/images/<%= itemCart[i].img_1 %>" alt="">
@@ -256,6 +178,7 @@
             </div>
             </div>
         </div>
+    </a>
         <%}%>
     </div>
     <%- include('footer.ejs') -%>

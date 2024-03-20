@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="/stylesheets/contact.css">
+    <link rel="stylesheet" href="/stylesheets/get_started.css">
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+</head>
+<body>
+    <%- include('header2.ejs') -%>
+    <div class="contact-page">
+        <div class="contact">
+
+            <div class="userContact-form">
+                    <h1>Contact Us</h1>
+                    <form action="/contact" id="formc" method="post"></form>
+                    <div class="input">
+        
+                            
+             
+                            <div class="form-group">
+                             <label for=""></label>
+                             <input form="formc"  class="input" type="email" name="email" placeholder="Enter Your Email" required>
+                            </div>
+             
+                            <div class="form-group">
+                             <label for=""></label>
+                             <input form="formc" class="input" type="text" name="phone" placeholder="Phone Number" required>
+                            </div>
+             
+                            <div class="form-group">
+                             <label for=""></label>
+                             <input form="formc" class="input" type="text" name="wattsupNo" placeholder="Enter Your Wattsup Number">
+                            </div>
+             
+                            <div class="form-group">
+                             <label for=""></label>
+                             <input form="formc" class="input" type="text" name="address" placeholder="Enter Your Address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""></label>
+                                <textarea form="formc" class="textarea" name="message" placeholder="message" ></textarea>
+                               </div>
+             
+                           
+                            <a href="">
+                             <button form="formc" class="button">Submit Details</button>
+                            </a>
+
+                    </div>
+            </div>
+        
+            <div class="companyContact-form">
+                <h1>Contact Info.</h1>
+                <div class="cont">
+        
+                    <div class="cont-info">
+                     <label for="">
+                        <i class="ri-mail-send-line"></i>
+                     </label>
+                     <h2>Support@Alnakiya.Com</h2>
+                    </div>
+     
+                    <div class="cont-info">
+                     <label for="">
+                        <i class="ri-customer-service-fill"></i>
+                     </label>
+                     <h2>+91,808-566-1234</h2>
+                    </div>
+     
+                    <div class="cont-info">
+                     <label for="">
+                        <i class="ri-map-pin-line"></i>
+                     </label>
+                     <h2>105 A, B, UAE@xyz</h2>
+                    </div>
+
+
+            </div>
+            </div>
+        </div>
+
+        <div class = "map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d223700.1490386933!2d-97.11558670486288!3d28.829485511234168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864266db2e2dac3b%3A0xeee20d566f63267d!2sVictoria%2C%20TX%2C%20USA!5e0!3m2!1sen!2snp!4v1604921178092!5m2!1sen!2snp" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+    </div>
+    <%- include('footer.ejs') -%>
+</body>
+</html>
