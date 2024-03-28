@@ -46,22 +46,21 @@ fetch('/category')
     boxcat.innerHTML = html
   })
 
-fetch('/subcategory')
-  .then(res => res.json())
-  .then(data=>{
-    const subcategoryList = data.data
-    // console.log("subcatlist",subcategoryList)
+// fetch('/subcategory')
+//   .then(res => res.json())
+//   .then(data=>{
+//     const subcategoryList = data.data
 
-    let html = ``
+//     let html = ``
 
-    subcategoryList.forEach(item => {
-      html += `<div>
-                <label><input type="checkbox" class="common-selector subcat" value="${item.subcategory_id}">
-                ${item.subcategory_name}</label>
-              </div>`
-    });
-    boxsubcat.innerHTML = html
-  }) 
+//     subcategoryList.forEach(item => {
+//       html += `<div>
+//                 <label><input type="checkbox" class="common-selector subcat" value="${item.subcategory_id}">
+//                 ${item.subcategory_name}</label>
+//               </div>`
+//     });
+//     boxsubcat.innerHTML = html
+//   }) 
 
 
   filterData();
@@ -81,6 +80,7 @@ document.addEventListener('click', function(e){
     console.log("input", target)
     if(target.classList.contains('common-selector')) {
         const className = target.classList.contains('cat') ? 'cat' : 'subcat';
+        console.log("click to cat", className)
         filterData(className);
     }
 });
@@ -91,6 +91,7 @@ function filterData() {
     const category = getFilter('cat');
     const subcategory = getFilter('subcat');
 
+    console.log("dor",category)
     $.ajax({
         url: './allcat',
         method: "GET",
@@ -99,6 +100,20 @@ function filterData() {
             subcategory
         },
         success: function (result) {
+        console.log('pp',result);
+        console.log("sub", result.subData)
+
+        const subData = result.subData;
+        let subD = ``;
+        subData.forEach((subd)=>{
+            subD += `<div>
+            <label><input type="checkbox" class="common-selector subcat" value="${subd.subcategory_id}">
+            ${subd.subcategory_name}</label>
+          </div>`
+         boxsubcat.innerHTML = subD
+
+        })
+
             let html = ``;
             // console.log("ooline", result);
             if (result.message === 'Success') {

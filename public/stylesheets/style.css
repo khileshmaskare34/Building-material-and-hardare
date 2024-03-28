@@ -181,7 +181,7 @@ button:hover{
 }
   .slide-3d{
       display: inline-block;
-      animation: 100s scroll infinite linear;
+      /* animation: 100s scroll infinite linear; */
   }
   .slide-3d .img-box{
       position: relative;
