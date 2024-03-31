@@ -5,10 +5,10 @@ const mysql = require("mysql2/promise");
 
 
 const pool = mysql.createPool({
-  host: 'localhost',
-    user: "root",
-    password: "",
-    database: "alnakiya_db",
+  host: 'braihbrprlonugpl9rgx-mysql.services.clever-cloud.com',
+    user: "usfrkrkpbbhvo7eo",
+    password: "a5pcKgrf7uJpeUgYY6tF",
+    database: "braihbrprlonugpl9rgx",
 });
 
 (async () => {

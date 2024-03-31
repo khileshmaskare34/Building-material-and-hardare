@@ -3,10 +3,10 @@ const { connect, param } = require('../routes');
 
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'alnakiya_db'
+  host: 'braihbrprlonugpl9rgx-mysql.services.clever-cloud.com',
+  user: "usfrkrkpbbhvo7eo",
+  password: "a5pcKgrf7uJpeUgYY6tF",
+  database: "braihbrprlonugpl9rgx",
 });
 connection.connect((err) => {
   if (err) {
