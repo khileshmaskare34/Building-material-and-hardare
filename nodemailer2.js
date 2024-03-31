@@ -12,17 +12,17 @@ exports.sendmail2 = function (req, res, email) {
   });
 
   const mailOptions = {
-    from: "Alnakiya Pvt. Ltd.<khileshnature@gmail.com>",
+    from: "xyz <khileshnature@gmail.com>",
     to: email,
-    subject: "Thank you for enquiry to Alnakiya.",
-    text: `Thank you for enquiry and welcome to Alnakiya. phone:`,
+    subject: "Thank you for enquiry to xyz.",
+    text: `Thank you for enquiry and welcome to xyz. phone:`,
   };
 
   const adminMailOptions = {
-    from: "NAFSCARE Pvt. Ltd.<chakravartiashish2406@gmail.com>",
-    to: "shehbaz_vayani@randomforest.in",
-    subject: "New registration on Alnakiya.",
-    text: `You have new registration on Alnakiya.`,
+    from: "xyz company <xyz@gmail.com>",
+    to: "khileshnature28@gmail.com",
+    subject: "New registration on xyz.",
+    text: `You have new registration on xyz.`,
   };
 
   transport.sendMail(adminMailOptions, (err, info) => {
